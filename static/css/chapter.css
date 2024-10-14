@@ -36,16 +36,20 @@ body {
 
 .sidebar .back-home {
     display: flex;
-    height: 55px;
-    width: fit-content;
+    height: 50px;
+    width: 100%;
     align-items: center;
-    margin: 10px 0 30px 10px;
-    padding: 0 13px 0 20px;
-    border-radius: 25px;
+    margin-bottom: 15px;
+    padding-left: 25px;
+}
+
+.sidebar .back-home span{
+    margin-right: 10px;
 }
 
 .sidebar .back-home:hover {
-    background-color: #252525;
+    color: #F5F5F5;
+    background-color: rgba(255, 0, 0, 0.5);
 }
 
 .sidebar .chapters {
@@ -80,5 +84,27 @@ body {
 .sidebar a:hover {
     transform: scale(1.01);
     color: red;
+    background-color: #151515;
     transition: 0.15s ease-in-out;
+}
+
+
+
+
+/* animation section */
+
+main {
+    display: flex;
+    justify-content: start;
+    height: 100vh;
+    width: 100%;
+}
+
+main h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: 100%;
+    margin: 3rem;
 }
