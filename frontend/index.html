@@ -29,7 +29,7 @@
             </li>
 
             <li>
-                <a href="/chapter1" class="start-btn">Explore Now</a>
+                <a href="/topic1" class="start-btn">Explore Now</a>
             </li>
         </ul>
     </nav>
@@ -44,16 +44,16 @@
 
             <div class="description">
                 <p>
-                    Dive into each chapter to enhance your understanding of networking principles through dynamic visualizations
+                    Dive into each topic to enhance your understanding of networking principles through dynamic visualizations
                 </p>
             </div>
 
-            <a href="/chapter1">Explore Now</a>
+            <a href="/topic1">Explore Now</a>
             
         </div>
 
         <div class="image">
-            <img src="{{ url_for('static', filename='images/some_image.png') }}" alt="">
+            <img src="{{ url_for('static', filename='images/data communications and networking cover.png') }}" alt="">
         </div>
 
     </section>
@@ -64,66 +64,46 @@
         <h1>Chapters</h1>
 
         <div class="two-chapters">
-            <a href="/chapter1">
-                <h4>Chapter 1</h4>
-                <p>Electronic Communication</p>
+            <a href="/topic1">
+                <h4>Topic 1</h4>
+                <p>AM and FM</p>
             </a>
 
-            <a href="/chapter2">
-                <h4>Chapter 2</h4> 
-                <p>Data Communication</p>
+            <a href="/topic2">
+                <h4>Topic 2</h4> 
+                <p>Sampling and Reconstruction</p>
             </a>
 
-            <a href="/chapter3">
-                <h4>Chapter 3</h4> 
-                <p>Data and Signals</p>
+            <a href="/topic3">
+                <h4>Topic 3</h4> 
+                <p>Step size and Noise effect</p>
             </a>
         </div>
 
         <div class="two-chapters">
-            <a href="/chapter4">
-                <h4>Chapter 4</h4>
-                <p>Digital and Analog Transmission</p>
+            <a href="/topic4">
+                <h4>Topic 4</h4>
+                <p>Calculators for chapter 1 and 2</p>
             </a>
 
-            <a href="/chapter5">
-                <h4>Chapter 5</h4> 
-                <p>Multiplexing and Spreading</p>
+            <a href="/topic5">
+                <h4>Topic 5</h4> 
+                <p>FDM and FHSS</p>
             </a>
 
-            <a href="/chapter6">
-                <h4>Chapter 6</h4> 
-                <p>Radio Receiver</p>
+            <a href="/topic6">
+                <h4>Topic 6</h4> 
+                <p>spectrum observation</p>
             </a>
         </div>
 
         <div class="two-chapters">
-            <a href="/chapter7">
-                <h4>Chapter 7</h4>
-                <p>Transmission Media</p>
+            <a href="/topic7">
+                <h4>Topic 7</h4>
+                <p>F1-F4 hierarchy</p>
             </a>
 
-            <a href="/chapter8">
-                <h4>Chapter 8</h4> 
-                <p>Switching Network</p>
-            </a>
-
-            <a href="/chapter9">
-                <h4>Chapter 9</h4> 
-                <p>Telecommunication system</p>
-            </a>
-        </div>
-
-        <div class="two-chapters">
-            <a href="/chapter10">
-                <h4>Chapter 10</h4>
-                <p>Satellite communication system</p>
-            </a>
-
-            <a href="/chapter11">
-                <h4>Chapter 11</h4>
-                <p>Optical Communication</p>
-            </a>
+            <div class="empty"></div>
 
             <div class="empty"></div>
         </div>
@@ -139,7 +119,7 @@
                 <span>Animations</span>
             </h3>
 
-            <a href="/chapter1">Explore Now</a>
+            <a href="/topic1">Explore Now</a>
         </div>
 
         <div class="footer-box box2">
@@ -156,6 +136,12 @@
         </div>
 
     </footer>
+    <div class="copyright">
+        <p>&copy; <span id="currentYear"></span> ICE Animations. All rights reserved.</p>
+        <script>
+          document.getElementById("currentYear").textContent = new Date().getFullYear();
+        </script>
+    </div>
 
 </body>
 </html>

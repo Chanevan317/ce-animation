@@ -23,15 +23,16 @@ body {
 /* sidebar */
 .sidebar {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 1%;
+    left: 10px;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: center;
     justify-content: start;
-    width: 180px;
-    height: 100%;
-    background-color: #101010;
+    width: 165px;
+    height: 98%;
+    background-color: #252525;
+    border: 2px solid #F5F5F577;
 }
 
 .sidebar .back-home {
@@ -39,7 +40,7 @@ body {
     height: 50px;
     width: 100%;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 40px;
     padding-left: 25px;
 }
 
@@ -52,19 +53,19 @@ body {
     background-color: rgba(255, 0, 0, 0.5);
 }
 
-.sidebar .chapters {
+.sidebar .topic {
     display: flex;
-    height: 65px;
+    height: 80px;
     width: 100%;
     text-decoration: none;
     color: #F5F5F5;
     font-size: 1.2rem;
     font-weight: 600;
     align-items: center;
-    padding: 0 25px;
+    justify-content: center;
 }
 
-.sidebar .chapters span{
+.sidebar .topic span{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -76,7 +77,7 @@ body {
     background-color: #F5F5F5;
 }
 
-.sidebar .chapters .active {
+.sidebar .topic .active {
     color: #F5F5F5;
     background-color: red;
 }
@@ -84,10 +85,9 @@ body {
 .sidebar a:hover {
     transform: scale(1.01);
     color: red;
-    background-color: #151515;
+    background-color: #303030;
     transition: 0.15s ease-in-out;
 }
-
 
 
 
@@ -99,7 +99,7 @@ main {
     justify-content: start;
     height: 100vh;
     width: 100%;
-    padding: 0 3rem;
+    padding: 0 70px;
 }
 
 main h1 {
@@ -107,6 +107,5 @@ main h1 {
     justify-content: center;
     align-items: center;
     height: fit-content;
-    width: 100%;
-    margin: 3rem;
+    margin: 30px;
 }

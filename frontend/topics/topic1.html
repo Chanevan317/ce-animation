@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/topic.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/topic1.css') }}">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+</head>
+<body class="poppins-regular">
+
+    <!-- sidebar -->
+    <div class="sidebar"> 
+        <a href="/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" height="22px" viewBox="0 -960 960 960" width="24px" fill="#F5F5F5"><path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/></svg>
+        </a>
+
+        <a href="/topic1" class="topic">
+            Topic <span class="active">1</span>
+        </a>
+
+        <a href="/topic2" class="topic">
+            Topic <span>2</span>
+        </a>
+
+        <a href="/topic3" class="topic">
+            Topic <span>3</span>
+        </a>
+
+        <a href="/topic4" class="topic">
+            Topic <span>4</span>
+        </a>
+
+        <a href="/topic5" class="topic">
+            Topic <span>5</span>
+        </a>
+
+        <a href="/topic6" class="topic">
+            Topic <span>6</span>
+        </a>
+
+        <a href="/topic7" class="topic">
+            Topic <span>7</span>
+        </a>
+    </div>
+
+
+    <!-- animation section -->
+    <main>
+
+        <h1 class="title">
+            AM and FM
+        </h1>
+
+        <div class="animation-board">
+
+            <div class="animation">
+
+                <div class="AM_FM">
+                    <button id="Original-btn" class="animation-btn active">Original Signal</button>
+                    <button id="AM-btn" class="animation-btn">Amplitude Modulation</button>
+                    <button id="FM-btn" class="animation-btn">Frequency Modulation</button>
+
+                    <script>
+                        const buttons = document.querySelectorAll('.animation-btn');
+                        buttons.forEach(button => {
+                            button.addEventListener('click', () => {
+                                buttons.forEach(btn => btn.classList.remove('active'));
+                                button.classList.add('active');
+                            });
+                        });
+                    </script>
+                </div>
+
+                <svg id="signal-plot" width="800" height="400"></svg>
+
+                <div class="description">
+                    <p>
+                        <span>Amplitude Modulation (AM)</span> encodes information by varying the amplitude of a carrier wave, 
+                        making it simpler and widely used in radio broadcasting. However, AM is more susceptible to noise, 
+                        which can affect sound quality.<br><br> 
+                        <span>Frequency Modulation (FM)</span> encodes information 
+                        by varying the frequency of the carrier wave. FM provides superior sound quality and better resistance 
+                        to noise, making it ideal for music and high-fidelity audio transmissions.
+                    </p>
+                </div>
+            </div>
+
+            <div class="control">
+                <div class="control-section">
+                    <h2>Original Signal</h2>
+                    <label for="speed-slider">Speed:</label>
+                    <input type="range" id="speed-slider" min="0.1" max="10" step="0.1" value="1">
+                    <span id="speed-value">1</span>
+
+                    <label for="amplitude-slider">Amplitude:</label>
+                    <input type="range" id="amplitude-slider" min="0.1" max="5" step="0.1" value="1">
+                    <span id="amplitude-value">1</span>
+
+                    <label for="frequency-slider">Frequency:</label>
+                    <input type="range" id="frequency-slider" min="1" max="1000" step="1" value="50">
+                    <span id="frequency-value">50 Hz</span>
+                </div>
+
+                <div class="control-section mod">
+                    <h2>AM Signal</h2>
+                    <label for="am-amplitude-slider">Amplitude:</label>
+                    <input type="range" id="am-amplitude-slider" min="0.1" max="5" step="0.1" value="1">
+                    <span id="am-amplitude-value">1</span>
+                </div>
+
+                <div class="control-section mod">
+                    <h2>FM Signal</h2>
+                    <label for="fm-frequency-slider">Frequency:</label>
+                    <input type="range" id="fm-frequency-slider" min="1" max="1000" step="1" value="50">
+                    <span id="fm-frequency-value">50 Hz</span>
+                </div>
+            </div>
+            
+        </div>
+
+        
+
+    </main>
+
+    <script src="{{ url_for('static', filename='js/animations/topic1.js') }}"></script>
+
+</body>
+</html>
