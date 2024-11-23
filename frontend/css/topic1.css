@@ -47,6 +47,11 @@ main .animation-board .animation .AM_FM button:hover {
     transition: 0.15s ease-in-out;
 }
 
+main .animation-board .animation .AM_FM button:active {
+    transform: scale(0.98);
+    transition: ease-in-out 0.1s;
+}
+
 main .animation-board .animation .description {
     display: flex;
     width: 90%;
@@ -74,14 +79,15 @@ main .control .control-section {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 5px;
     width: 100%;
-    height: 43%;
+    height: 40%;
     background-color: #252525;
     border: 2px solid #F5F5F577;
 }
 
 main .control .mod {
-    height: 25%;
+    height: 27%;
 }
 
 main .control .control-section:hover {
@@ -97,14 +103,5 @@ main .control .control-section h2 {
 
 input[type="range"] {
     width: 55%;
-    background-color: red;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-    appearance: none;
-    background-color: red;
-}
-
-input[type="range"]::-moz-range-thumb {
-    background-color: red;
+    accent-color: red;
 }

@@ -1,24 +1,31 @@
 const width = 800, height = 400, margin = { top: 20, right: 30, bottom: 30, left: 40 };
+const plotWidth = width - margin.left - margin.right;
+const plotHeight = height - margin.top - margin.bottom;
+const maxPoints = 200;
 
-// Add state variables for signal type
-let signalType = 'original'; // can be 'original', 'am', or 'fm'
+// Signal state
+let timeData = [];
+let currentTime = 0;
+const timeStep = 0.5;
+let signalType = 'original';
+let amplitude = 1;
+let frequency = 50;
+let amAmplitude = 1;
+let fmFrequency = 50;
 
+// Setup SVG
 const svg = d3.select("#signal-plot")
     .attr("width", width)
     .attr("height", height)
     .attr("viewBox", [0, 0, width, height])
     .style("border", "2px solid #F5F5F577");
 
-const plotWidth = width - margin.left - margin.right;
-const plotHeight = height - margin.top - margin.bottom;
-
-// Clear any existing content
 svg.selectAll("*").remove();
 
 const g = svg.append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-// Create a clip path to hide signals outside the plot area
+// Setup clipping path
 g.append("defs")
     .append("clipPath")
     .attr("id", "clip")
@@ -26,98 +33,88 @@ g.append("defs")
     .attr("width", plotWidth)
     .attr("height", plotHeight);
 
-// Configuration for continuous data
-const maxPoints = 200;  // Number of points to show
-let timeData = [];
-let currentTime = 0;
-const timeStep = 30;    // Time between points in ms
+// Setup scales
+const xScale = d3.scaleLinear().domain([0, maxPoints - 1]).range([0, plotWidth]);
+const yScale = d3.scaleLinear().domain([-4, 4]).range([plotHeight, 0]);
 
-// Signal parameters
-const signalFreq = 1;    // Base signal frequency
-const amFreq = 0.2;     // AM modulation frequency
-const fmFreq = 0.3;     // FM modulation frequency
-const amplitude = 1;    // Base amplitude
-
-// Scales
-const xScale = d3.scaleLinear()
-    .domain([0, maxPoints - 1])
-    .range([0, plotWidth]);
-
-const yScale = d3.scaleLinear()
-    .domain([-2, 2])   // Fixed domain for consistent view
-    .range([plotHeight, 0]);
-
-// Line generator
+// Setup line generator
 const lineGenerator = d3.line()
     .x((d, i) => xScale(i))
     .y(d => yScale(d.value))
     .curve(d3.curveBasis);
 
-// Create a container for the signal with clipping
-const signalContainer = g.append("g")
-    .attr("clip-path", "url(#clip)");
-
-// Add axes
-g.append("g")
-    .attr("transform", `translate(0,${plotHeight})`)
-    .call(d3.axisBottom(xScale));
-
-g.append("g")
-    .call(d3.axisLeft(yScale));
+// Setup axes and signal path
+const signalContainer = g.append("g").attr("clip-path", "url(#clip)");
 
 // Add gridlines
 g.append("g")
     .attr("class", "grid")
-    .attr("opacity", 0.1)
-    .call(d3.axisLeft(yScale)
-        .tickSize(-plotWidth)
-        .tickFormat("")
-    );
+    .selectAll("line")
+    .data(yScale.ticks())
+    .enter()
+    .append("line")
+    .attr("x1", 0)
+    .attr("x2", plotWidth)
+    .attr("y1", d => yScale(d))
+    .attr("y2", d => yScale(d))
+    .attr("stroke", "#e0e0e030")
+    .attr("stroke-dasharray", "2,2");
 
-// Create path for the signal
+// Draw y-axis
+g.append("g")
+    .attr("class", "y-axis")
+    .call(d3.axisLeft(yScale));
+
 const signalPath = signalContainer.append("path")
     .attr("class", "line signal-line")
     .attr("fill", "none")
     .attr("stroke", "red")
     .attr("stroke-width", 2);
 
-// Function to generate new signal point
 function generateSignalPoint(time) {
     const t = time * 0.001; // Convert to seconds
-    const baseSignal = Math.sin(2 * Math.PI * signalFreq * t);
+    const baseSignal = Math.sin(2 * Math.PI * frequency * t);
     
     let value;
-    switch(signalType) {
+    switch (signalType) {
         case 'am':
-            // AM signal: carrier * (1 + modulation)
-            const amModulation = 0.5 * Math.sin(2 * Math.PI * amFreq * t);
+            const amModulation = amAmplitude * Math.sin(2 * Math.PI * (frequency * 0.1) * t);
             value = amplitude * baseSignal * (1 + amModulation);
             break;
-            
         case 'fm':
-            // FM signal: frequency modulation
-            const fmModulation = 2 * Math.sin(2 * Math.PI * fmFreq * t);
-            value = amplitude * Math.sin(2 * Math.PI * signalFreq * t + fmModulation);
+            const fmModulation = 2 * Math.sin(2 * Math.PI * fmFrequency * t);
+            value = amplitude * Math.sin(2 * Math.PI * frequency * t + fmModulation);
             break;
-            
-        default: // 'original'
+        default: // original signal
             value = amplitude * baseSignal;
     }
     
-    return {
-        time: time,
-        value: value
-    };
+    return { time, value };
 }
 
-// Initialize data array
-for (let i = 0; i < maxPoints; i++) {
-    timeData.push(generateSignalPoint(currentTime));
-    currentTime += timeStep;
+function initializeSignal() {
+    for (let i = 0; i < maxPoints; i++) {
+        timeData.push(generateSignalPoint(currentTime));
+        currentTime += timeStep;
+    }
 }
 
-// Function to update the signal
+function updateSliderValues() {
+    amplitude = parseFloat(document.getElementById("amplitude-slider").value);
+    frequency = parseFloat(document.getElementById("frequency-slider").value);
+    amAmplitude = parseFloat(document.getElementById("am-amplitude-slider").value);
+    fmFrequency = parseFloat(document.getElementById("fm-frequency-slider").value);
+
+    // Update display values
+    document.getElementById("amplitude-value").textContent = `${amplitude.toFixed(1)} V`;
+    document.getElementById("frequency-value").textContent = `${frequency} Hz`;
+    document.getElementById("am-amplitude-value").textContent = `${amAmplitude.toFixed(1)} V`;
+    document.getElementById("fm-frequency-value").textContent = `${fmFrequency} Hz`;
+}
+
 function updateSignal() {
+    updateSliderValues();
+
     // Remove oldest point and add new point
     timeData.shift();
     timeData.push(generateSignalPoint(currentTime));
@@ -126,25 +123,35 @@ function updateSignal() {
     // Update the path
     signalPath.attr("d", lineGenerator(timeData));
 
-    // Request next frame
+    // Schedule next update
     requestAnimationFrame(updateSignal);
 }
 
-// Initialize the buttons using D3
-document.addEventListener('DOMContentLoaded', function() {
-    // Add button click handlers using D3
-    d3.select("#Original-btn").on("click", function() {
-        signalType = 'original';
-    });
-
-    d3.select("#AM-btn").on("click", function() {
-        signalType = 'am';
-    });
-
-    d3.select("#FM-btn").on("click", function() {
-        signalType = 'fm';
-    });
-
-    // Start the animation
-    updateSignal();
+// Add event listeners
+document.getElementById("Original-btn").addEventListener("click", () => {
+    signalType = 'original';
+    initializeSignal();
 });
+
+document.getElementById("AM-btn").addEventListener("click", () => {
+    signalType = 'am';
+    initializeSignal();
+});
+
+document.getElementById("FM-btn").addEventListener("click", () => {
+    signalType = 'fm';
+    initializeSignal();
+});
+
+// Add slider input listeners
+['amplitude-slider', 'frequency-slider', 
+ 'am-amplitude-slider', 'fm-frequency-slider'].forEach(id => {
+    const element = document.getElementById(id);
+    if (element) {
+        element.addEventListener("change", updateSliderValues);
+    }
+});
+
+// Initialize and start visualization
+initializeSignal();
+updateSignal();

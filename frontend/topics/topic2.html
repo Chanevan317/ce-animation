@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 1</title>
+    <title>Topic 2</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/topic.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/topic2.css') }}">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
 </head>
 <body class="poppins-regular">
 
@@ -51,8 +54,61 @@
             Sampling and Reconstruction
         </h1>
 
+        <div class="animation-board">
+
+            <div class="animation">
+
+                <svg id="signal-plot" width="800" height="400"></svg>
+
+                <div class="sampling-reconstruction-btn">
+                    <button id="reset-btn">Reset</button>
+                    <button id="sample-btn">Sample the signal</button>
+                    <button id="reconstruct-btn">Reconstruct the signal</button>
+                </div>
+
+                <div class="description">
+                    <p>
+                        <span>Sampling</span> converts a continuous signal into discrete points by measuring it at regular intervals. 
+                        A higher sampling frequency ensures accurate representation, following the Nyquist theorem.<br><br> 
+                        <span>Reconstruction</span> restores a continuous signal from sampled points by interpolating between them, 
+                        aiming to recreate the original signal accurately.
+                    </p>
+                </div>
+            </div>
+
+            <div class="control">
+                <div class="control-section">
+                    <h2>Original Signal</h2>
+
+                    <label for="amplitude-slider">Amplitude:</label>
+                    <input type="range" id="amplitude-slider" min="0" max="4" step="0.1" value="2">
+                    <span id="amplitude-value">2.0 V</span>
+
+                    <label for="frequency-slider">Frequency:</label>
+                    <input type="range" id="frequency-slider" min="10" max="100" step="5" value="10">
+                    <span id="frequency-value">10 Hz</span>
+                </div>
+
+                <div class="control-section fs">
+                    <h2>Sampling Signal</h2>
+                    <label for="am-amplitude-slider">Sampling frequency:</label>
+                    <input type="range" id="fs-slider" min="10" max="500" step="5" value="10">
+                    <span id="am-amplitude-value">10 Hz</span>
+                </div>
+
+                <div class="control-section fs">
+                    <h2>Nyquist information</h2>
+                    <p id="nyquist-rate">Nyquist Rate: 2 × f<sub>m</sub> = -- Hz</p>
+                    <p id="sampling-criteria">Sampling Frequency f<sub>s</sub> = -- × f<sub>m</sub></p>
+                    <p id="nyquist-status" style="font-size: 1.1rem; margin-top: 7px; color: red;">--</p>
+                </div>
+            </div>
+            
+        </div>
+
     </main>
 
-    <script src="/static/js/script.js"></script>
+    <script src="{{ url_for('static', filename='js/animations/topic2.js') }}"></script>
+
 </body>
 </html>
