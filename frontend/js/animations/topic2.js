@@ -4,7 +4,7 @@ const plotHeight = height - margin.top - margin.bottom;
 
 // Default values for signal parameters
 const defaultValues = {
-    amplitude: 2,
+    amplitude: 2,       
     frequency: 10,
     samplingFrequency: 10,
 };
@@ -20,6 +20,7 @@ let frequency = 10;
 let samplingFrequency = 10;
 let timeData = [];
 let sampledPoints = [];
+let reset = false;
 
 // Setup SVG
 const svg = d3.select("#signal-plot")
@@ -51,7 +52,9 @@ const lineGenerator = d3.line()
     .y(d => yScale(d.value));       
 
 // Setup axes and signal path
-const signalContainer = g.append("g").attr("clip-path", "url(#clip)");
+const signalContainer = g.append("g")
+    .attr("clip-path", "url(#clip)")
+    .attr("class", "signal-container");
 
 // Add gridlines
 g.append("g")
@@ -107,8 +110,15 @@ function generateSignalPoints() {
 
 function sampleSignal() {
     if (samplingFrequency > 0 && timeData.length > 0) {
+        // Set the reset variable to false
+        reset = false;
+
         // Calculate sampling period
         const samplingPeriod = 1 / samplingFrequency;
+
+        // Clear sampled points
+        sampledPointsGroup.selectAll("*").remove();
+        sampledPath.attr("d", "");
         
         // Find points closest to the sampling intervals
         sampledPoints = [];
@@ -177,6 +187,12 @@ function reconstructSignal() {
         return;
     }
 
+    // Check if signals have been reset
+    if (reset) {
+        alert("Please sample the signal first before reconstruction");
+        return;
+    }
+
     // Check if we have the original signal data
     if (!timeData || timeData.length === 0) {
         alert("No signal data available for reconstruction");
@@ -236,6 +252,9 @@ function reconstructSignal() {
 }
 
 function resetSignal() {
+    // Set the reset variable to true
+    reset = true;
+
     // Reset slider values to defaults
     const amplitudeSlider = document.getElementById("amplitude-slider");
     const frequencySlider = document.getElementById("frequency-slider");

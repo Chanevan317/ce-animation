@@ -7,6 +7,10 @@ main .animation-board {
     margin-bottom: 30px;
 }
 
+main .animation-board #signal-plot {
+    margin-top: 20px;
+}
+
 main .animation-board .animation {
     display: flex;
     flex-direction: column;
@@ -20,17 +24,17 @@ main .animation-board .animation .AM_FM {
     display: flex;
     width: 100%;
     gap: 20px;
-    margin: 20px 0;
+    margin-top: 20px
 }
 
 main .animation-board .animation .AM_FM button {
     display: flex;
-    height: 40px;
+    height: 45px;
     width: fit-content;
     justify-content: center;
     align-items: center;
     padding: 0 20px;
-    font-size: 1rem;
+    font-size: 1.025rem;
     color: #F5F5F5;
     background-color: #252525;
     border: 2px solid #F5F5F577;
@@ -38,7 +42,7 @@ main .animation-board .animation .AM_FM button {
 }
 
 main .animation-board .animation .AM_FM button.active {
-    background-color: rgba(255, 0, 0, 0.9);
+    background-color: #FF0000CC;
     border: 2px solid rgba(255, 0, 0, 0.9);
 }
 
@@ -81,13 +85,21 @@ main .control .control-section {
     align-items: center;
     gap: 5px;
     width: 100%;
-    height: 40%;
+    height: 31%;
     background-color: #252525;
     border: 2px solid #F5F5F577;
 }
 
 main .control .mod {
-    height: 27%;
+    height: 34%;
+}
+
+main .control .mod p {
+    margin: 0 0 12px 0;
+}
+
+main .control .mod p span {
+    font-weight: 600;
 }
 
 main .control .control-section:hover {

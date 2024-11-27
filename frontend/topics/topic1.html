@@ -58,8 +58,11 @@
 
             <div class="animation">
 
+                <svg id="signal-plot" width="800" height="400"></svg>
+
                 <div class="AM_FM">
-                    <button id="Original-btn" class="animation-btn active">Original Signal</button>
+                    <button id="Original-btn" class="animation-btn active">Baseband Signal</button>
+                    <button id="Carrier-btn" class="animation-btn">Carrier Signal</button>
                     <button id="AM-btn" class="animation-btn">Amplitude Modulation</button>
                     <button id="FM-btn" class="animation-btn">Frequency Modulation</button>
 
@@ -73,8 +76,6 @@
                         });
                     </script>
                 </div>
-
-                <svg id="signal-plot" width="800" height="400"></svg>
 
                 <div class="description">
                     <p>
@@ -90,29 +91,39 @@
 
             <div class="control">
                 <div class="control-section">
-                    <h2>Original Signal</h2>
+                    <h2>Baseband Signal</h2>
 
-                    <label for="amplitude-slider">Amplitude:</label>
+                    <label for="amplitude-slider">Baseband Amplitude:</label>
                     <input type="range" id="amplitude-slider" min="0" max="2" step="0.1" value="1">
-                    <span id="amplitude-value">0 V</span>
+                    <span id="amplitude-value">1.0 V</span>
 
-                    <label for="frequency-slider">Frequency:</label>
-                    <input type="range" id="frequency-slider" min="20" max="150" step="5" value="50">
-                    <span id="frequency-value">50 Hz</span>
+                    <label for="frequency-slider">Baseband Frequency:</label>
+                    <input type="range" id="frequency-slider" min="20" max="100" step="5" value="20">
+                    <span id="frequency-value">20 Hz</span>
+                </div>
+
+                <div class="control-section">
+                    <h2>Carrier Signal</h2>
+
+                    <label for="carrier-amplitude-slider">Carrier Amplitude:</label>
+                    <input type="range" id="carrier-amplitude-slider" min="0.5" max="2" step="0.1" value="0.5">
+                    <span id="carrier-amplitude-value">0.5 V</span>
+
+                    <label for="carrier-frequency-slider">Carrier Frequency:</label>
+                    <input type="range" id="carrier-frequency-slider" min="50" max="300" step="5" value="50">
+                    <span id="carrier-frequency-value">50 Hz</span>
                 </div>
 
                 <div class="control-section mod">
-                    <h2>AM Signal</h2>
-                    <label for="am-amplitude-slider">Amplitude:</label>
-                    <input type="range" id="am-amplitude-slider" min="0" max="1" step="0.1" value="0">
-                    <span id="am-amplitude-value">0 V</span>
-                </div>
+                    <h2>Modulation</h2>
 
-                <div class="control-section mod">
-                    <h2>FM Signal</h2>
-                    <label for="fm-frequency-slider">Frequency:</label>
-                    <input type="range" id="fm-frequency-slider" min="10" max="75" step="5" value="10">
-                    <span id="fm-frequency-value">50 Hz</span>
+                    <p>AM Index μ = <span id="am-index-value">--</span></p>
+
+                    <p>FM Index β = <span id="fm-index-value">--</span></p>
+
+                    <label for="fm-sensitivity-slider">frequency sensitivity (k<sub>f</sub>):</label>
+                    <input type="range" id="fm-sensitivity-slider" min="0" max="150" step="5" value="0">
+                    <span id="fm-sensitivity-value">0 Hz</span>
                 </div>
             </div>
             

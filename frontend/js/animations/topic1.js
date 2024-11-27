@@ -9,9 +9,10 @@ let currentTime = 0;
 const timeStep = 0.5;
 let signalType = 'original';
 let amplitude = 1;
-let frequency = 50;
-let amAmplitude = 1;
-let fmFrequency = 50;
+let frequency = 20;
+let carrierAmplitude = 1;
+let carrierFrequency = 50;
+let fmSensitivity = 0;
 
 // Setup SVG
 const svg = d3.select("#signal-plot")
@@ -44,7 +45,10 @@ const lineGenerator = d3.line()
     .curve(d3.curveBasis);
 
 // Setup axes and signal path
-const signalContainer = g.append("g").attr("clip-path", "url(#clip)");
+const signalContainer = g.append("g")
+    .attr("clip-path", "url(#clip)")
+    .attr("class", "signal-container");
+
 
 // Add gridlines
 g.append("g")
@@ -73,17 +77,21 @@ const signalPath = signalContainer.append("path")
 
 function generateSignalPoint(time) {
     const t = time * 0.001; // Convert to seconds
-    const baseSignal = Math.sin(2 * Math.PI * frequency * t);
+    const baseSignal = Math.cos(2 * Math.PI * frequency * t);
+    const carrierSignal = Math.cos(2 * Math.PI * carrierFrequency * t);
     
     let value;
     switch (signalType) {
         case 'am':
-            const amModulation = amAmplitude * Math.sin(2 * Math.PI * (frequency * 0.1) * t);
-            value = amplitude * baseSignal * (1 + amModulation);
+            const amIndex = amplitude / carrierAmplitude;
+            value = carrierAmplitude * carrierSignal * (1 + amIndex * baseSignal);
             break;
         case 'fm':
-            const fmModulation = 2 * Math.sin(2 * Math.PI * fmFrequency * t);
-            value = amplitude * Math.sin(2 * Math.PI * frequency * t + fmModulation);
+            const fmIndex = (fmSensitivity *  amplitude) / frequency;
+            value = carrierAmplitude * Math.cos((2 * Math.PI * carrierFrequency * t) + fmIndex * Math.sin(2 * Math.PI * frequency * t));
+            break;
+        case 'carrier':
+            value = carrierAmplitude * carrierSignal;
             break;
         default: // original signal
             value = amplitude * baseSignal;
@@ -93,6 +101,7 @@ function generateSignalPoint(time) {
 }
 
 function initializeSignal() {
+    timeData = []; // Clear existing data
     for (let i = 0; i < maxPoints; i++) {
         timeData.push(generateSignalPoint(currentTime));
         currentTime += timeStep;
@@ -102,14 +111,25 @@ function initializeSignal() {
 function updateSliderValues() {
     amplitude = parseFloat(document.getElementById("amplitude-slider").value);
     frequency = parseFloat(document.getElementById("frequency-slider").value);
-    amAmplitude = parseFloat(document.getElementById("am-amplitude-slider").value);
-    fmFrequency = parseFloat(document.getElementById("fm-frequency-slider").value);
+    carrierAmplitude = parseFloat(document.getElementById("carrier-amplitude-slider").value);
+    carrierFrequency = parseFloat(document.getElementById("carrier-frequency-slider").value);
+    fmSensitivity = parseFloat(document.getElementById("fm-sensitivity-slider").value);
 
     // Update display values
     document.getElementById("amplitude-value").textContent = `${amplitude.toFixed(1)} V`;
     document.getElementById("frequency-value").textContent = `${frequency} Hz`;
-    document.getElementById("am-amplitude-value").textContent = `${amAmplitude.toFixed(1)} V`;
-    document.getElementById("fm-frequency-value").textContent = `${fmFrequency} Hz`;
+    document.getElementById("carrier-amplitude-value").textContent = `${carrierAmplitude.toFixed(1)} V`;
+    document.getElementById("carrier-frequency-value").textContent = `${carrierFrequency} Hz`;
+    document.getElementById("fm-sensitivity-value").textContent = `${fmSensitivity} Hz`;
+
+
+    // Calculate amIndex and fmIndex and display 
+    const amIndex = amplitude / carrierAmplitude; 
+    const fmIndex = fmSensitivity / frequency;
+
+    // Update Nyquist information
+    document.getElementById("am-index-value").textContent = `${amIndex.toFixed(2)}`;
+    document.getElementById("fm-index-value").textContent = `${fmIndex.toFixed(2)}`;
 }
 
 function updateSignal() {
@@ -121,7 +141,18 @@ function updateSignal() {
     currentTime += timeStep;
 
     // Update the path
-    signalPath.attr("d", lineGenerator(timeData));
+    //signalPath.attr("d", lineGenerator(timeData));
+
+    // Set stroke color based on signal type
+    const colorMap = {
+        original: "white",
+        carrier: "red",
+        am: "orange",
+        fm: "yellow",
+    };
+    signalPath
+        .attr("stroke", colorMap[signalType]) // Dynamically set stroke color
+        .attr("d", lineGenerator(timeData));
 
     // Schedule next update
     requestAnimationFrame(updateSignal);
@@ -130,6 +161,11 @@ function updateSignal() {
 // Add event listeners
 document.getElementById("Original-btn").addEventListener("click", () => {
     signalType = 'original';
+    initializeSignal();
+});
+
+document.getElementById("Carrier-btn").addEventListener("click", () => {
+    signalType = 'carrier';
     initializeSignal();
 });
 
@@ -145,10 +181,11 @@ document.getElementById("FM-btn").addEventListener("click", () => {
 
 // Add slider input listeners
 ['amplitude-slider', 'frequency-slider', 
- 'am-amplitude-slider', 'fm-frequency-slider'].forEach(id => {
+ 'carrier-amplitude-slider', 'carrier-frequency-slider',
+  'fm-sensitivity-slider'].forEach(id => {
     const element = document.getElementById(id);
     if (element) {
-        element.addEventListener("change", updateSliderValues);
+        element.addEventListener("changes", updateSliderValues);
     }
 });
 

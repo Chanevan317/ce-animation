@@ -20,14 +20,14 @@ main .animation-board .animation {
 main .animation .sampling-reconstruction-btn {
     display: flex;
     width: 800px;
-    margin-top: 40px;
-    justify-content: end;
+    margin-top: 20px;
+    justify-content: start;
     gap: 20px;
 }
 
 main .animation .sampling-reconstruction-btn button {
     display: flex;
-    height: 50px;
+    height: 45px;
     width: fit-content;
     justify-content: center;
     align-items: center;
@@ -35,37 +35,13 @@ main .animation .sampling-reconstruction-btn button {
     font-size: 1.1rem;
     color: #F5F5F5;
     background-color: #252525;
-    border: 2px solid #FF000077;
+    border: 2px solid #F5F5F577;
     cursor: pointer;
 }
 
 main .animation .sampling-reconstruction-btn button:hover {
-    background-color: red;
+    background-color: #FF0000CC;
     border: 2px solid #FF000077;
-    transition: ease-in-out 0.3s;
-}
-
-main .animation .sampling-reconstruction-btn button#sample-btn {
-    background-color: #252525;
-    border: 2px solid #F5F5F577;
-}
-
-main .animation .sampling-reconstruction-btn button#sample-btn:hover {
-    background-color: #F5F5F5;
-    border: 2px solid #F5F5F577;
-    color: black;
-    transition: ease-in-out 0.3s;
-}
-
-main .animation .sampling-reconstruction-btn button#reconstruct-btn {
-    background-color: #252525;
-    border: 2px solid #FFFF0077;
-}
-
-main .animation .sampling-reconstruction-btn button#reconstruct-btn:hover {
-    background-color: #FFFF00;
-    border: 2px solid #FFFF0077;
-    color: black;
     transition: ease-in-out 0.3s;
 }
 

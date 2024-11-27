@@ -83,7 +83,6 @@ body {
 }
 
 .sidebar a:hover {
-    transform: scale(1.01);
     color: red;
     background-color: #303030;
     transition: 0.15s ease-in-out;
