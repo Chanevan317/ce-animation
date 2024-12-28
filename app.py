@@ -1,5 +1,4 @@
-from flask import Flask, render_template, jsonify, request
-#from data_processing import process_signal
+from flask import Flask, render_template
 import os
 
 app = Flask(
