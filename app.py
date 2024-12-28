@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request
-from data_processing import process_signal
+#from data_processing import process_signal
 import os
 
 app = Flask(
@@ -16,10 +16,6 @@ def home():
 @app.route('/topic<int:topic_number>')
 def topic_page(topic_number):
     return render_template(f'topics/topic{topic_number}.html')
-
-@app.route('/api/signal-data', methods=['POST'])
-def get_signal_data():
-    return process_signal()
 
 if __name__ == '__main__':
     app.run(debug=False, host='0.0.0.0', port=int(os.getenv('PORT', 5000)))
