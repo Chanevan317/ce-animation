@@ -1,4 +1,4 @@
-const width = 800, height = 400, margin = { top: 20, right: 30, bottom: 30, left: 40 };
+const width = 800, height = 420, margin = { top: 20, right: 30, bottom: 30, left: 40 };
 const plotWidth = width - margin.left - margin.right;
 const plotHeight = height - margin.top - margin.bottom;
 const maxPoints = 200;
@@ -125,7 +125,7 @@ function updateSliderValues() {
 
     // Calculate amIndex and fmIndex and display 
     const amIndex = amplitude / carrierAmplitude; 
-    const fmIndex = fmSensitivity / frequency;
+    const fmIndex = (fmSensitivity *  amplitude) / frequency;
 
     // Update Nyquist information
     document.getElementById("am-index-value").textContent = `${amIndex.toFixed(2)}`;

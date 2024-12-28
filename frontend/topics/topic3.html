@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 1</title>
+    <title>Topic 3</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/data communications and networking logo.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/topic.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/topic3.css') }}">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body class="poppins-regular">
 
@@ -51,8 +54,64 @@
             Step size and Noise effect
         </h1>
 
+        <div class="animation-board">
+
+            <div class="animation">
+
+                <svg id="signal-plot" width="800" height="400"></svg>
+
+                <div class="sampling-reconstruction-btn">
+                    <button id="mode-btn">Noise Effects</button>
+                    <button id="reconstruct-btn">Reconstruct the signal</button>
+                </div>
+
+                <div class="description">
+                    <p>
+                        <span>Step size effect</span> quantizes a continuous signal by approximating its values at specific intervals, 
+                        with a finer step size providing greater precision in representation.<br><br> 
+                        <span>Noise effect</span> adds random variations to the signal, simulating disturbances or inaccuracies, 
+                        which are then reduced through methods like filtering to approximate the original continuous signal.
+                    </p>
+                </div>
+            </div>
+
+            <div class="control">
+                <div class="control-section" id="baseband">
+                    <h2>Baseband Signal</h2>
+
+                    <label for="amplitude-slider">Baseband Amplitude: <span id="amplitude-value">2.0 V</span></label>
+                    <input type="range" id="amplitude-slider" min="0" max="4" step="0.1" value="2">
+
+                    <label for="frequency-slider">Baseband Frequency: <span id="frequency-value">10 Hz</span></label>
+                    <input type="range" id="frequency-slider" min="10" max="100" step="5" value="10">
+                </div>
+
+                <div class="control-section fs" id="step-box">
+                    <h2>Step Size</h2>
+                    <label for="step-slider">Step size value: <span id="step-value">0.50 V</span></label>
+                    <input type="range" id="step-slider" min="0.05" max="2" step="0.05" value="0.5">
+                </div>  
+
+                <div class="control-section fs hidden" id="noise-box">
+                    <h2>Noise</h2>
+                    <label for="noise-slider">Noise value: <span id="noise-value">-20.0 dB</span></label>
+                    <input type="range" id="noise-slider" min="-40" max="0" step="0.1" value="-20">
+                </div>
+
+                <div class="control-section info" id="step-info">
+                    <h2>Information</h2>
+                    <p id="quantization-levels">Quantization Levels: --</p>
+                </div>
+                
+                <div class="control-section info hidden" id="noise-info">
+                    <h2>You are currently in<br>Noise Effects mode</h2>
+                </div>                
+            </div>
+            
+        </div>
+
     </main>
 
-    <script src="/static/js/script.js"></script>
+    <script src="{{ url_for('static', filename='js/animations/topic3.js') }}"></script>
 </body>
 </html>

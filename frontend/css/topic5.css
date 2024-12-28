@@ -89,22 +89,17 @@ main .control .control-section span {
     font-weight: 600;
 }
 
-main .control .fs {
-    height: 28%;
+main .control .fdm-info {
+    height: 60%;
+    padding: 0 30px;
 }
 
-main .control .info {
-    height: 33%;
-}
-
-main .control .info p {
+main .control .fdm-info p {
     margin: 0;
 }
 
-main .control .fs p {
-    margin: 1px 0;
-    padding: 0;
-    font-size: 1rem !important;
+main .control .fhss {
+    height: 100%;
 }
 
 main .control .control-section:hover {
@@ -116,25 +111,26 @@ main .control .control-section h2 {
     margin-top: 0;
 }
 
-/* Change the track color and width */
-
-input[type="range"] {
-    width: 55%;
-    accent-color: red;
+main .control .control-section .time-slot-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+    width: 60%;
 }
 
-
-
-
-/* Draw the sigal */
-
-.point {
-    fill: yellow;
+main .control .control-section .time-slot-box .time-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-main .control .hidden {
-    display: none;
-    height: 0;
+main .control .control-section .time-slot select {
+    display: flex;
+    text-align: center;
+    height: 30px;
+    margin-top: 5px;
 }
 
 main .control button {
@@ -144,7 +140,7 @@ main .control button {
     justify-content: center;
     align-items: center;
     padding: 0 20px;
-    margin-top: 10px;
+    margin-top: 40px;
     font-size: 1.1rem;
     color: #000000;
     border: none;
@@ -162,3 +158,16 @@ main .control button:active {
     transform: scale(0.98);
     transition: ease-in-out 0.1s;
 }
+
+main .hidden {
+    display: none !important;
+    height: 0;
+}
+
+/* Change the track color and width */
+
+input[type="range"] {
+    width: 55%;
+    accent-color: red;
+}
+

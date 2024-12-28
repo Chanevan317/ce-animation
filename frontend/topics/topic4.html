@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 1</title>
+    <title>Topic 4</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/topic.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/topic4.css') }}">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body class="poppins-regular">
 
@@ -51,9 +53,11 @@
             Calculators for chapter 1 and 2
         </h1>
 
+        
+
     </main>
 
 
-    <script src="/static/js/script.js"></script>
+    <script src="{{ url_for('static', filename='js/animations/topic4.js') }}"></script>
 </body>
 </html>

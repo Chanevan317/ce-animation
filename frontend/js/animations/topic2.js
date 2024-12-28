@@ -6,7 +6,7 @@ const plotHeight = height - margin.top - margin.bottom;
 const defaultValues = {
     amplitude: 2,       
     frequency: 10,
-    samplingFrequency: 10,
+    samplingFrequency: 15,
 };
 
 // Sampling and display parameters
@@ -21,6 +21,9 @@ let samplingFrequency = 10;
 let timeData = [];
 let sampledPoints = [];
 let reset = false;
+let signalData = [];
+let sampled = false;
+let isDrawingMode = false;
 
 // Setup SVG
 const svg = d3.select("#signal-plot")
@@ -44,7 +47,7 @@ g.append("defs")
 
 // Setup scales
 const xScale = d3.scaleLinear().domain([0, timeWindow]).range([0, plotWidth]);
-const yScale = d3.scaleLinear().domain([-4.9, 4.9]).range([plotHeight, 0]);
+const yScale = d3.scaleLinear().domain([-4.5, 4.5]).range([plotHeight, 0]);
 
 // Setup line generator
 const lineGenerator = d3.line()
@@ -87,6 +90,11 @@ const signalPath = signalContainer.append("path")
     .attr("stroke", "red")
     .attr("stroke-width", 2);
 
+const drawingArea = signalContainer.append("rect")
+    .attr("width", plotWidth)
+    .attr("height", plotHeight)
+    .attr("fill", "transparent")
+
 const sampledPath = signalContainer.append("path")
     .attr("class", "line sampled-line")
     .attr("fill", "none")
@@ -109,7 +117,30 @@ function generateSignalPoints() {
 }
 
 function sampleSignal() {
-    if (samplingFrequency > 0 && timeData.length > 0) {
+    // Determine which signal to sample
+    let signalToSample = timeData;
+
+    // If there are drawn points, use those
+    if (signalData.length > 0) {
+        // Convert signalData to the same format as timeData if it's not already
+        signalToSample = signalData.map(point => ({
+            time: point.x,
+            value: point.y
+        }));
+    }
+
+    if (isDrawingMode) {
+        alert("Please generate signal before sampling");
+        return;
+    }
+
+    // Ensure we have signal data to sample
+    if (signalToSample.length === 0) {
+        alert("No signal data available to sample");
+        return;
+    }
+
+    if (samplingFrequency > 0) {
         // Set the reset variable to false
         reset = false;
 
@@ -125,13 +156,13 @@ function sampleSignal() {
         let currentTime = 0;
         
         while (currentTime <= timeWindow) {
-            // Find the point in timeData closest to our desired sampling time
-            const closestPoint = timeData.reduce((closest, current) => {
+            // Find the point in signalToSample closest to our desired sampling time
+            const closestPoint = signalToSample.reduce((closest, current) => {
                 if (!closest) return current;
                 return Math.abs(current.time - currentTime) < Math.abs(closest.time - currentTime) 
                     ? current 
                     : closest;
-            }, timeData[0]); // Provide initial value
+            }, signalToSample[0]); // Provide initial value
             
             if (closestPoint) {
                 sampledPoints.push(closestPoint);
@@ -173,6 +204,8 @@ function sampleSignal() {
                 .attr("r", 4); // Grow to final radius
         });
 
+        isDrawingMode = false;
+        sampled = true;
     } else {
         // Clear all sampled points and lines when sampling frequency is 0
         sampledPointsGroup.selectAll("*").remove();
@@ -181,79 +214,204 @@ function sampleSignal() {
 }
 
 function reconstructSignal() {
-    // Check if signal has been sampled first
-    if (!sampledPoints || sampledPoints.length === 0) {
+    let signalToReconstruct = timeData;
+
+    // Use drawn points if available
+    if (signalData.length > 0) {
+        signalToReconstruct = signalData.map(point => ({
+            time: point.x,
+            value: point.y
+        }));
+    }
+
+    // Check if signal was sampled
+    if (!sampledPoints || sampledPoints.length === 0 || !sampled) {
         alert("Please sample the signal first before reconstruction");
         return;
     }
 
-    // Check if signals have been reset
-    if (reset) {
-        alert("Please sample the signal first before reconstruction");
-        return;
-    }
-
-    // Check if we have the original signal data
-    if (!timeData || timeData.length === 0) {
-        alert("No signal data available for reconstruction");
-        return;
-    }
-
-    // Time points for reconstruction (use same time points as original signal)
+    // Time points for reconstruction
     const reconstructedPoints = [];
     const T = 1 / samplingFrequency; // Sampling period
 
-    // Use the same time points as the original signal for reconstruction
-    for (let i = 0; i < timeData.length; i++) {
-        const t = timeData[i].time;
+    // Normalize time points if needed
+    const normalizedSignal = signalToReconstruct.map((point) => ({
+        time: point.time,
+        value: point.value
+    }));
+
+    for (let i = 0; i < normalizedSignal.length; i++) {
+        const t = normalizedSignal[i].time;
         let reconstructedValue = 0;
 
-        // Sum the contribution of each sampled point using sinc interpolation
         sampledPoints.forEach((sample) => {
-            // Time of this sample
             const tk = sample.time;
-            
-            // Sinc function
             const sincArg = (t - tk) / T;
-            const sincValue = Math.abs(sincArg) < 0.000001 ? 
-                1 : Math.sin(Math.PI * sincArg) / (Math.PI * sincArg);
-            
+
+            const sincValue = Math.abs(sincArg) < 1e-10
+                ? 1
+                : Math.sin(Math.PI * sincArg) / (Math.PI * sincArg);
+
             reconstructedValue += sample.value * sincValue;
         });
 
-        reconstructedPoints.push({
-            time: t,
-            value: reconstructedValue
-        });
+        reconstructedPoints.push({ time: t, value: reconstructedValue });
     }
 
-    // Generate the reconstruction path
+    // Generate path
     const reconstructedPath = lineGenerator(reconstructedPoints);
-
-    // Apply the reconstructed path
     sampledPath
         .attr("d", reconstructedPath)
         .attr("stroke", "yellow")
         .attr("stroke-width", 2)
         .attr("fill", "none");
 
-    // Animate the path using stroke-dasharray and stroke-dashoffset
+    // Animate path
     const totalLength = sampledPath.node().getTotalLength();
-
     sampledPath
-        .attr("stroke-dasharray", totalLength) // Total path length
-        .attr("stroke-dashoffset", totalLength) // Start hidden
+        .attr("stroke-dasharray", totalLength)
+        .attr("stroke-dashoffset", totalLength)
         .transition()
-        .duration(1500) // Duration of the animation
-        .ease(d3.easeLinear) // Linear easing for smooth transition
-        .attr("stroke-dashoffset", 0); // Animate to fully visible
+        .duration(1500)
+        .ease(d3.easeLinear)
+        .attr("stroke-dashoffset", 0);
 
     return reconstructedPoints;
+}
+
+const drawnBtn = document.getElementById("draw-btn");
+drawnBtn.addEventListener("click", function() {
+    if (drawnBtn.textContent.includes('Draw your signal')) {
+        // Clear the default signal
+        signalPath.attr("d", "");
+        timeData = []; // Clear the time data
+        signalData = []; // Clear any existing points
+
+        // Enter drawing mode
+        isDrawingMode = true;
+
+        // clear samples
+        sampledPointsGroup.selectAll("*").remove();
+        sampledPath.attr("d", "");
+
+        // Change the pointer
+        drawingArea.style("cursor", "crosshair");
+    } else {
+        // Exit drawing mode
+        isDrawingMode = false;
+        signalPath.attr("d", "");
+        svg.selectAll(".point").remove();
+
+        // Default cursor
+        drawingArea.style("cursor", "");
+
+        // Regenerate the Default signal
+        generateSignalPoints();
+    }
+});
+
+// Draw the signal
+function drawSignal() {
+    // Sort points by x-coordinate
+    signalData.sort((a, b) => a.x - b.x);
+
+    // Add boundary points
+    if (signalData.length > 0) {
+        const firstPoint = signalData[0];
+        const lastPoint = signalData[signalData.length - 1];
+        const timeZero = { x: 0, y: firstPoint.y }; // Point at time = 0
+        const timeEnd = { x: d3.max(timeData, d => d.time), y: lastPoint.y }; // Point at the end of the axis
+
+        // Insert boundary points if they are not already there
+        if (firstPoint.x > 0) {
+            signalData.unshift(timeZero);
+        }
+        if (lastPoint.x < timeEnd.x) {
+            signalData.push(timeEnd);
+        }
+    }
+
+    // Update path
+    signalPath.attr("d", lineGenerator(signalData.map(p => ({ time: p.x, value: p.y }))));
+
+    // Update points
+    const points = signalContainer.selectAll(".point").data(signalData, d => d.x);
+
+    // Remove exiting points
+    points.exit().remove();
+
+    // Add and update points
+    points.enter()
+        .append("circle")
+        .attr("class", "point")
+        .attr("r", 3)
+        .attr("fill", "red")
+        .merge(points)
+        .attr("cx", d => xScale(d.x))
+        .attr("cy", d => yScale(d.y));
+
+    // Reset sampled flag
+    sampled = false;
+}
+
+
+
+// Cubic Spline Interpolation Function
+function smoothDrawnSignal() {
+    // Check if there are enough points to interpolate
+    if (signalData.length < 2) {
+        alert("Not enough points to generate a smooth signal");
+        return;
+    }
+
+    // Sort points by x-coordinate to ensure correct interpolation
+    signalData.sort((a, b) => a.x - b.x);
+
+    // Use cubic spline interpolation
+    const xs = signalData.map(point => point.x);
+    const ys = signalData.map(point => point.y);
+
+    // Create a cubic spline interpolator
+    const spline = d3.interpolateBasis(ys);
+
+    // Generate more points for a smoother curve
+    const smoothPoints = [];
+    const numInterpolatedPoints = 100; // Adjust for desired smoothness
+
+    for (let i = 0; i <= numInterpolatedPoints; i++) {
+        const t = i / numInterpolatedPoints;
+        const interpX = xs[0] + t * (xs[xs.length - 1] - xs[0]);
+        const interpY = spline(t);
+
+        smoothPoints.push({
+            time: interpX,
+            value: interpY
+        });
+    }
+
+    // Update the signal path with smooth interpolated points
+    signalPath.attr("d", lineGenerator(smoothPoints));
+
+    // Remove existing points
+    svg.selectAll(".point").remove();
+
+    // Optionally, update signalData with the smooth points
+    signalData = smoothPoints.map(point => ({
+        x: point.time,
+        y: point.value
+    }));
+
+    // Exit drawing mode
+    isDrawingMode = false;
+    drawingArea.style("cursor", "");
 }
 
 function resetSignal() {
     // Set the reset variable to true
     reset = true;
+
+    signalData = [];
+    timeData = [];
 
     // Reset slider values to defaults
     const amplitudeSlider = document.getElementById("amplitude-slider");
@@ -273,13 +431,17 @@ function resetSignal() {
     // Update display values
     document.getElementById("amplitude-value").textContent = `${amplitude.toFixed(1)} V`;
     document.getElementById("frequency-value").textContent = `${frequency} Hz`;
-    document.getElementById("am-amplitude-value").textContent = `${samplingFrequency} Hz`;
+    document.getElementById("fs-value").textContent = `${samplingFrequency} Hz`;
     
-    // Clear sampled points
+    // Clear everything
     sampledPointsGroup.selectAll("*").remove();
     sampledPath.attr("d", "");
-    
-    // Regenerate signal with default values
+    signalPath.attr("d", "");
+    svg.selectAll(".point").remove();
+    document.getElementById("draw-btn").innerHTML = 'Draw your signal';
+    document.getElementById('baseband').classList.remove("hidden");
+    document.getElementById('drawn').classList.add('hidden');   
+
     generateSignalPoints();
 }
 
@@ -292,11 +454,12 @@ function updateSliderValues() {
     // Clear sampled points
     sampledPointsGroup.selectAll("*").remove();
     sampledPath.attr("d", "");
+    reset = true;
 
     // Update display values
     document.getElementById("amplitude-value").textContent = `${amplitude.toFixed(1)} V`;
     document.getElementById("frequency-value").textContent = `${frequency} Hz`;
-    document.getElementById("am-amplitude-value").textContent = `${samplingFrequency} Hz`;
+    document.getElementById("fs-value").textContent = `${samplingFrequency} Hz`;
 
     // Nyquist rate and condition
     const nyquistRate = 2 * frequency; // Nyquist rate = 2 × f_m
@@ -313,7 +476,7 @@ function updateSliderValues() {
     document.getElementById("nyquist-status").textContent = nyquistStatus;
     document.getElementById("nyquist-status").style.color = samplingFrequency >= nyquistRate ? "green" : "red";
 
-    generateSignalPoints();
+    if (!drawnSignalMode) generateSignalPoints(); 
 }
 
 // Event listeners
@@ -321,9 +484,74 @@ document.getElementById("amplitude-slider").addEventListener("input", updateSlid
 document.getElementById("frequency-slider").addEventListener("input", updateSliderValues);
 document.getElementById("fs-slider").addEventListener("input", updateSliderValues);
 
-document.getElementById("reset-btn").addEventListener("click", resetSignal);
 document.getElementById("sample-btn").addEventListener("click", sampleSignal);
 document.getElementById("reconstruct-btn").addEventListener("click", reconstructSignal);
+
+drawingArea.on("click", function(event) {
+    // Only allow drawing if in drawing mode
+    if (!isDrawingMode) return;
+
+    const coords = d3.pointer(event);
+    const x = xScale.invert(coords[0]);
+    const y = yScale.invert(coords[1]);
+
+    // Prevent duplicate x coordinates
+    const existingPointIndex = signalData.findIndex(point => point.x === x);
+    if (existingPointIndex !== -1) {
+        signalData.splice(existingPointIndex, 1);
+    }
+
+    // Add new point
+    signalData.push({x, y});
+    drawSignal();
+});
+
+document.getElementById("Generate-btn").addEventListener("click", smoothDrawnSignal);
+// Clear drawn signal
+d3.select("#clear-btn").on("click", () => {
+    signalData = [];
+    timeData = [];
+    signalPath.attr("d", "");
+    svg.selectAll(".point").remove();
+    sampledPointsGroup.selectAll("*").remove();
+    sampledPath.attr("d", "");
+    isDrawingMode = true;
+    drawingArea.style("cursor", "crosshair");
+    drawSignal();
+});
+
+// Show and hide original signal section
+const drawBtn = document.getElementById('draw-btn');
+const baseband = document.getElementById('baseband');
+const nyquist = document.getElementById('nyquist');
+const drawHelp = document.getElementById('draw-help');
+const drawn = document.getElementById('drawn');
+let drawnSignalMode = false;
+drawBtn.addEventListener('click', () => {
+    if (drawn.classList.contains("hidden")) {
+        drawn.classList.remove('hidden');
+        baseband.classList.add('hidden');
+        drawHelp.classList.remove('hidden');
+        nyquist.classList.add('hidden');
+        drawBtn.innerHTML = 'Default signal';
+        svg.selectAll(".point").remove();
+        drawnSignalMode = true;
+        sampled = false;
+    } else {
+        baseband.classList.remove("hidden");
+        drawn.classList.add('hidden');
+        nyquist.classList.remove("hidden");
+        drawHelp.classList.add('hidden');
+        drawBtn.innerHTML = 'Draw your signal';
+        svg.selectAll(".point").remove();
+        sampledPointsGroup.selectAll("*").remove();
+        sampledPath.attr("d", "");
+        drawnSignalMode = false;
+        sampled = false;
+        resetSignal();
+    }
+});
+
 
 // Initialize the visualization
 generateSignalPoints();

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topic 2</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/data communications and networking logo.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/topic.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/topic2.css') }}">
     <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -64,7 +65,6 @@
                     <button id="draw-btn">Draw your signal</button>
                     <button id="sample-btn">Sample the signal</button>
                     <button id="reconstruct-btn">Reconstruct the signal</button>
-                    <button id="reset-btn">Reset</button>
                 </div>
 
                 <div class="description">
@@ -78,30 +78,41 @@
             </div>
 
             <div class="control">
-                <div class="control-section">
-                    <h2>Original Signal</h2>
+                <div class="control-section" id="baseband">
+                    <h2>Baseband Signal</h2>
 
-                    <label for="amplitude-slider">Amplitude:</label>
+                    <label for="amplitude-slider">Baseband Amplitude: <span id="amplitude-value">2.0 V</span></label>
                     <input type="range" id="amplitude-slider" min="0" max="4" step="0.1" value="2">
-                    <span id="amplitude-value">2.0 V</span>
 
-                    <label for="frequency-slider">Frequency:</label>
+                    <label for="frequency-slider">Baseband Frequency: <span id="frequency-value">10 Hz</span></label>
                     <input type="range" id="frequency-slider" min="10" max="100" step="5" value="10">
-                    <span id="frequency-value">10 Hz</span>
+                </div>
+
+                <div class="control-section hidden" id="drawn">
+                    <h2>Drawn Signal</h2>
+
+                    <button id="Generate-btn">Generate Signal</button>
+                    <button id="clear-btn">Clear Signal</button>
                 </div>
 
                 <div class="control-section fs">
                     <h2>Sampling Signal</h2>
-                    <label for="am-amplitude-slider">Sampling frequency:</label>
-                    <input type="range" id="fs-slider" min="10" max="500" step="5" value="10">
-                    <span id="am-amplitude-value">10 Hz</span>
+                    <label for="fs-slider">Sampling frequency: <span id="fs-value">15 Hz</span></label>
+                    <input type="range" id="fs-slider" min="15" max="500" step="5" value="15">
                 </div>
 
-                <div class="control-section fs">
+                <div class="control-section info" id="nyquist">
                     <h2>Nyquist information</h2>
                     <p id="nyquist-rate">Nyquist Rate: 2 × f<sub>m</sub> = -- Hz</p>
                     <p id="sampling-criteria">Sampling Frequency f<sub>s</sub> = -- × f<sub>m</sub></p>
-                    <p id="nyquist-status" style="font-size: 1.1rem; margin-top: 7px; color: red;">--</p>
+                    <p id="nyquist-status" style="font-size: 1rem; margin-top: 7px; color: red;">--</p>
+                </div>
+
+                <div class="control-section info hidden" id="draw-help">
+                    <h2>Draw Guide</h2>
+                    <p>Click on the plan to add points.</p>
+                    <p>Build your signal using multiple points.</p>
+                    <p>Click "Generate Signal" to proceed.</p>
                 </div>
             </div>
             
