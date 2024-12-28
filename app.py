@@ -1,9 +1,13 @@
 from flask import Flask, render_template, jsonify, request
 from data_processing import process_signal
 import os
-import json
 
-app = Flask(__name__, template_folder='../frontend', static_folder='../frontend', static_url_path='/')
+app = Flask(
+    __name__,
+    template_folder='frontend',  # Path to your HTML files
+    static_folder='frontend',   # Path to your CSS/JS files
+    static_url_path='/'         # Serve static files from the root
+)
 
 @app.route('/')
 def home():
@@ -18,4 +22,4 @@ def get_signal_data():
     return process_signal()
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False, host='0.0.0.0', port=int(os.getenv('PORT', 5000)))
