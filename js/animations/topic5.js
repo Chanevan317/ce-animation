@@ -17,7 +17,7 @@ const xScale = d3.scaleLinear()
   .range([margin.left, width - margin.right]);
 
 const yScale = d3.scaleLinear()
-  .domain([1, 6]) // Frequencies (F1 - F6)
+  .domain([1, 8]) // Frequencies (F1 - F6)
   .range([height - margin.bottom, margin.top]);
 
 // FHSS Data
@@ -274,7 +274,7 @@ function drawFHSSPattern() {
     // Draw frequencies (Y-axis)
     svg.append("g")
         .attr("transform", `translate(${margin.left}, 0)`)
-        .call(d3.axisLeft(yScale).ticks(6).tickFormat((d, i) => `F${i + 1}`));
+        .call(d3.axisLeft(yScale).ticks(8).tickFormat((d, i) => `F${i + 1}`)); // Updated tick format
 
     // Plot FHSS pattern with line
     if (fhssPattern.length > 0) {

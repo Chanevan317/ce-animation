@@ -130,6 +130,7 @@ main .control .control-section .time-slot select {
     display: flex;
     text-align: center;
     height: 30px;
+    width: 80px;
     margin-top: 5px;
 }
 
