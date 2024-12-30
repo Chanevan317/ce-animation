@@ -7,7 +7,6 @@ body {
     margin: 0 0 0 180px;
     padding: 0;
     display: flex;
-    height: 100vh;
 }
 
 /* font style */
@@ -96,7 +95,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: start;
-    height: 100vh;
+    height: 870px;
     width: 100%;
     padding: 0 70px;
 }

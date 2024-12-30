@@ -37,13 +37,13 @@
             Topic <span>5</span>
         </a>
 
-        <a href="topic6.html" class="topic">
+        <!-- <a href="topic6.html" class="topic">
             Topic <span>6</span>
         </a>
 
         <a href="topic7.html" class="topic">
             Topic <span>7</span>
-        </a>
+        </a> -->
     </div>
 
 
@@ -54,7 +54,180 @@
             Calculators for chapter 1 and 2
         </h1>
 
+        <div class="animation">
+
+            <svg id="signal-plot" width="800" height="420"></svg>
+
+            <div class="sampling-reconstruction-btn">
+                <button id="mode-btn">Switch to FHSS</button>
+                <button id="frq-btn">Show Frequency Band Allocation</button>
+            </div>
+
+            <div class="description">
+                <p>
+                    <span>Frequency Division Multiplexing (FDM)</span> divides the available frequency spectrum into non-overlapping bands, 
+                    assigning each band to a separate signal for simultaneous transmission, maximizing bandwidth efficiency.<br><br> 
+                    <span>Frequency Hopping Spread Spectrum (FHSS)</span> rapidly changes the carrier frequency over a wide spectrum in 
+                    a pseudorandom sequence, improving security and resistance to interference during data transmission.
+                </p>
+            </div>
+        </div>
+
+        <div class="control">
+            <div class="control-section" id="fdm-box">
+                <h2>Number of Users</h2>
+
+                <label for="user-slider">Number: <span id="user-value">1</span></label>
+                <input type="range" id="user-slider" min="1" max="10" step="1" value="1">
+            </div>
+
+            <div class="control-section fdm-info" id="fdmInfo-box">
+                <h2>About FDM</h2>
+                <p>
+                    In FDM, each user is allocated a unique frequency band within the available spectrum. 
+                    This allows multiple users to transmit simultaneously without interference, as their 
+                    signals are separated by different carrier frequencies.
+                </p>
+
+                <p>
+                    FDM divides the total available bandwidth into smaller, non-overlapping frequency bands, 
+                    with each band dedicated to a separate signal. The spectrum is organized to ensure efficient 
+                    use of bandwidth, with guard bands in between to prevent overlap and interference.
+                </p>
+            </div>  
+
+            <div class="control-section fhss hidden" id="fhss-box">
+                <h2>FHSS</h2>
+                <div class="time-slot-box">
+                    <div class="time-slot">
+                        <label>T0</label>
+                        <select id="T0">
+                            <option value="">Select F</option>
+                            <option value="1">F1</option>
+                            <option value="2">F2</option>
+                            <option value="3">F3</option>
+                            <option value="4">F4</option>
+                            <option value="5">F5</option>
+                            <option value="6">F6</option>
+                            <option value="7">F7</option>
+                            <option value="8">F8</option>
+                        </select>
+                    </div>
+                    <div class="time-slot">
+                        <label>T1</label>
+                        <select id="T1">
+                            <option value="">Select F</option>
+                            <option value="1">F1</option>
+                            <option value="2">F2</option>
+                            <option value="3">F3</option>
+                            <option value="4">F4</option>
+                            <option value="5">F5</option>
+                            <option value="6">F6</option>
+                            <option value="7">F7</option>
+                            <option value="8">F8</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="time-slot-box">
+                    <div class="time-slot">
+                        <label>T2</label>
+                        <select id="T2">
+                            <option value="">Select F</option>
+                            <option value="1">F1</option>
+                            <option value="2">F2</option>
+                            <option value="3">F3</option>
+                            <option value="4">F4</option>
+                            <option value="5">F5</option>
+                            <option value="6">F6</option>
+                            <option value="7">F7</option>
+                            <option value="8">F8</option>
+                        </select>
+                    </div>
+                    <div class="time-slot">
+                        <label>T3</label>
+                        <select id="T3">
+                            <option value="">Select F</option>
+                            <option value="1">F1</option>
+                            <option value="2">F2</option>
+                            <option value="3">F3</option>
+                            <option value="4">F4</option>
+                            <option value="5">F5</option>
+                            <option value="6">F6</option>
+                            <option value="7">F7</option>
+                            <option value="8">F8</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="time-slot-box">
+                    <div class="time-slot">
+                        <label>T4</label>
+                        <select id="T4">
+                            <option value="">Select F</option>
+                            <option value="1">F1</option>
+                            <option value="2">F2</option>
+                            <option value="3">F3</option>
+                            <option value="4">F4</option>
+                            <option value="5">F5</option>
+                            <option value="6">F6</option>
+                            <option value="7">F7</option>
+                            <option value="8">F8</option>
+                        </select>
+                    </div>
+                    <div class="time-slot">
+                        <label>T5</label>
+                        <select id="T5">
+                            <option value="">Select F</option>
+                            <option value="1">F1</option>
+                            <option value="2">F2</option>
+                            <option value="3">F3</option>
+                            <option value="4">F4</option>
+                            <option value="5">F5</option>
+                            <option value="6">F6</option>
+                            <option value="7">F7</option>
+                            <option value="8">F8</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="time-slot-box">
+                    <div class="time-slot">
+                        <label>T6</label>
+                        <select id="T6">
+                            <option value="">Select F</option>
+                            <option value="1">F1</option>
+                            <option value="2">F2</option>
+                            <option value="3">F3</option>
+                            <option value="4">F4</option>
+                            <option value="5">F5</option>
+                            <option value="6">F6</option>
+                            <option value="7">F7</option>
+                            <option value="8">F8</option>   
+                        </select>
+                    </div>
+                    <div class="time-slot">
+                        <label>T7</label>
+                        <select id="T7">
+                            <option value="">Select F</option>
+                            <option value="1">F1</option>
+                            <option value="2">F2</option>
+                            <option value="3">F3</option>
+                            <option value="4">F4</option>
+                            <option value="5">F5</option>
+                            <option value="6">F6</option>
+                            <option value="7">F7</option>
+                            <option value="8">F8</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button id="generate-pattern">Generate Pattern</button>
+                <button id="clear-pattern">Clear Pattern</button>
+            </div>                
+        </div>
         
+    </div>
 
     </main>
 

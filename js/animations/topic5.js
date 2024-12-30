@@ -23,6 +23,9 @@ const yScale = d3.scaleLinear()
 // FHSS Data
 let fhssPattern = [];
 
+// Add borders
+svg.style("border", "2px solid #F5F5F577");
+
 // Helper Functions
 function generateSineWave(frequency, amplitude, phase, centerY) {
     const maxX = width - 120; // Limit the sine wave to the available width of the channel
@@ -35,11 +38,13 @@ function generateSineWave(frequency, amplitude, phase, centerY) {
 
 function generateFrequencySpectrum() {
     const spectrum = [];
-    const bandwidthPerUser = totalBandwidth / numUsers; // Divide total bandwidth among users
+    const guardbandWidth = totalBandwidth * 0.02; // Set guardband width as 2% of total bandwidth
+    const usableBandwidth = totalBandwidth - guardbandWidth * (numUsers - 1); // Reduce usable bandwidth
+    const bandwidthPerUser = usableBandwidth / numUsers; // Divide usable bandwidth among users
 
     for (let i = 0; i < numUsers; i++) {
-        const startFreq = i * bandwidthPerUser;
-        const endFreq = (i + 1) * bandwidthPerUser;
+        const startFreq = i * (bandwidthPerUser + guardbandWidth);
+        const endFreq = startFreq + bandwidthPerUser;
         spectrum.push({ startFreq, endFreq });
     }
 
@@ -50,9 +55,6 @@ function generateFrequencySpectrum() {
 function createFrequencyAxis() {
     // Remove existing axis if present
     svg.selectAll(".axis").remove();
-
-    // Add borders
-    svg.style("border", "2px solid #F5F5F577");
 
     // Create a group to hold the axes
     const axisGroup = svg.append("g")
@@ -81,14 +83,14 @@ function createFrequencyAxis() {
         .attr("fill", "#fff")
         .attr("font-size", "14px");
 
-    // Y-axis: Only showing 0 and 1 for Amplitude
+    // Y-axis
     const yScale = d3.scaleLinear()
-        .domain([0, 1]) // Amplitude goes from 0 to 1
+        .domain([0, 1])
         .range([height - 80, 20]); // Scale for Y axis from bottom to top
 
     const yAxis = d3.axisLeft(yScale)
         .ticks(2) // Only show 0 and 1 on the Y-axis
-        .tickFormat(d => d === 0 || d === 1 ? d : ""); // Show only 0 and 1, hide the rest
+        .tickFormat(() => "")
 
     axisGroup.append("g")
         .attr("class", "y-axis")
@@ -118,7 +120,7 @@ function drawFDMVisualization() {
             .attr("width", 60)
             .attr("height", height)
             .attr("fill", "#252525")
-            .attr("stroke", "#ccc");
+            .attr("stroke", "2px solid #F5F5F577");
 
         svg.append("text")
             .attr("x", 30)
@@ -134,7 +136,7 @@ function drawFDMVisualization() {
             .attr("width", 60)
             .attr("height", height)
             .attr("fill", "#252525")
-            .attr("stroke", "#ccc");
+            .attr("stroke", "2px solid #F5F5F577");
 
         svg.append("text")
             .attr("x", width - 30)
@@ -154,36 +156,28 @@ function drawFDMVisualization() {
             .attr("transform", "translate(60, 10)");
 
         // Draw the frequency pulses (triangles) for each user
-        spectrumGroup.selectAll("polygon.user-frequency")
+        spectrumGroup.selectAll("path.user-frequency")
             .data(spectrum)
             .enter()
-            .append("polygon")
-            .attr("points", d => {
-                const startX = (d.startFreq / totalBandwidth) * (width - 90); // Left corner of the triangle
-                const endX = (d.endFreq / totalBandwidth) * (width - 90); // Right corner of the triangle
-                const midX = (startX + endX) / 2; // Middle of the triangle (peak)
-                const midY = height - 80; // Vertical position (height of the triangle)
-                return [
-                    [startX, midY],  // Left corner of the triangle
-                    [endX, midY],    // Right corner of the triangle
-                    [midX, 20]        // Peak of the triangle
-                ].join(" "); // Join the points into a string for the polygon
+            .append("path")
+            .attr("d", d => {
+                const startX = (d.startFreq / totalBandwidth) * (width - 90); // Left edge of the frequency range
+                const endX = (d.endFreq / totalBandwidth) * (width - 90); // Right edge of the frequency range
+                const midX = (startX + endX) / 2; // Center of the frequency range
+                const baseY = height - 80; // Base of the half-oval
+                const topY = 20; // Peak of the half-oval (vertical position)
+
+                // Use an SVG path to create the half-oval
+                return `
+                    M ${startX},${baseY} 
+                    Q ${midX},${topY} ${endX},${baseY} 
+                    Z
+                `;
             })
             .attr("fill", (d, i) => colors[i % colors.length]) // Different color for each user
-            .attr("stroke", "#ddd"); // Optional: add a border for the triangle
+            .attr("stroke-width", 1);
 
-        // Draw the guardbands as transparent areas between frequency pulses
-        spectrumGroup.selectAll("rect.guardband")
-            .data(spectrum.slice(1)) // Skip the first user as there is no guardband before them
-            .enter()
-            .append("rect")
-            .attr("x", (d, i) => (spectrum[i].endFreq / totalBandwidth) * (width - 90)) // Start at the end of the previous user's frequency
-            .attr("y", 0)
-            .attr("width", (d, i) => ((d.startFreq - spectrum[i].endFreq) / totalBandwidth) * (width - 90)) // Width of the guardband
-            .attr("height", height - 80) // Height of the guardband
-            .attr("fill", "#000"); // Light transparent fill for guardbands
-
-        // Optionally, add labels or ticks on the frequency spectrum
+        // Add labels or ticks on the frequency spectrum
         spectrumGroup.selectAll("text")
             .data(spectrum)
             .enter()
@@ -359,9 +353,9 @@ document.getElementById("user-slider").addEventListener("input", function () {
 document.getElementById("frq-btn").addEventListener("click", function () {
     isFrequencySpectrumVisible = !isFrequencySpectrumVisible; // Toggle flag
     if(isFrequencySpectrumVisible){
-        document.getElementById("frq-btn").textContent = "Hide Frequency Spectrum";
+        document.getElementById("frq-btn").textContent = "Hide Frequency Band Allocation";
     } else {
-        document.getElementById("frq-btn").textContent = "Show Frequency Spectrum";
+        document.getElementById("frq-btn").textContent = "Show Frequency Band Allocation";
     }
     updateVisualization();
 });
