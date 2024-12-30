@@ -18,6 +18,15 @@ main .animation-board .animation {
     padding-top: 20px;
 }
 
+main .animation-board .animation .formula {
+    display: flex;
+    height: 420px;
+    width: 800px;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #F5F5F577;
+}
+
 main .animation .sampling-reconstruction-btn {
     display: flex;
     width: 800px;
@@ -137,17 +146,21 @@ main .control .control-section .time-slot select {
 
 main .control button {
     display: flex;
-    height: 40px;
-    width: fit-content;
+    height: 45px;
+    width: 100%;
     justify-content: center;
     align-items: center;
     padding: 0 20px;
-    margin-top: 40px;
     font-size: 1.1rem;
-    color: #000000;
-    border: none;
-    background-color: #F5F5F5;
+    color: #F5F5F5;
+    background-color: #252525;
+    border: 2px solid #F5F5F577;
     cursor: pointer;
+}
+
+main .control .active-btn {
+    background-color: #FF0000CC;
+    color: #F5F5F5;
 }
 
 main .control button:hover {
