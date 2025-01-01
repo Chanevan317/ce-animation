@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 1 and 2 Calculators</title>
+    <title>Topic 4</title>
+    <link rel="icon" href="../images/data communications and networking logo.png">
     <link rel="stylesheet" href="../css/topic.css">
+    <link rel="stylesheet" href="../css/topic4.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body class="poppins-regular">
 
@@ -16,7 +19,7 @@
 
         <a href="topic1.html" class="topic">
             Topic <span>1</span>
-        </a>
+        </a> 
 
         <a href="topic2.html" class="topic">
             Topic <span>2</span>
@@ -39,410 +42,104 @@
         </a>
 
         <a href="topic7.html" class="topic">
-            Topic <span>7</span> -->
-        </a>
+            Topic <span>7</span>
+        </a> -->
     </div>
 
-    <!-- main content section -->
+
+    <!-- animation section -->
     <main>
-        <h1 class="title">Calculators for Chapter 1 and 2</h1>
-        
-        <!-- Formula Calculators -->
-        <section>
-            <h2>1. Voltage Gain / Attenuation(A<sub>v</sub>)</h2>
-            <p>Calculate the Voltage Gain:</p>
-            <form onsubmit="calculateAv(event)">
-                <label>Output Voltage (V<sub>out</sub>): 
-                    <input type="number" id="vout1" required>
-                </label>
-                <label>Input Voltage (V<sub>in</sub>): 
-                    <input type="number" id="vin1" required>
-                </label>
-                <button type="submit">Calculate</button>
-            </form>
-            <p id="resultAv"></p>
-        </section>
 
-        <section>
-            <h2>2. Power Gain (A<sub>p</sub>)</h2>
-            <p>Calculate the Power Gain:</p>
-            <form onsubmit="calculateAp(event)">
-                <label>Output Power (P<sub>out</sub>): 
-                    <input type="number" id="pout1" required>
-                </label>
-                <label>Input Power (P<sub>in</sub>): 
-                    <input type="number" id="pin1" required>
-                </label>
-                <button type="submit">Calculate</button>
-            </form>
-            <p id="resultAp"></p>
-        </section>
+        <h1 class="title">
+            Calculators for chapter 1 and 2
+        </h1>
 
-        <section>
-            <h2>3. Decibel (Voltage Gain)</h2>
-            <p>Calculate Voltage Gain in Decibels:</p>
-            <form onsubmit="calculateDbVoltage(event)">
-                <label>Output Voltage (V<sub>out</sub>): 
-                    <input type="number" id="vout2" required>
-                </label>
-                <label>Input Voltage (V<sub>in</sub>): 
-                    <input type="number" id="vin2" required>
-                </label>
-                <button type="submit">Calculate</button>
-            </form>
-            <p id="resultDbVoltage"></p>
-        </section>
+        <div class="animation-board">
 
-        <section>
-            <h2>4. Decibel (Power Gain)</h2>
-            <p>Calculate Power Gain in Decibels:</p>
-            <form onsubmit="calculateDbPower(event)">
-                <label>Output Power (V<sub>out</sub>): 
-                    <input type="number" id="vout3" required>
-                </label>
-                <label>Input Power (V<sub>in</sub>): 
-                    <input type="number" id="vin3" required>
-                </label>
-                <button type="submit">Calculate</button>
-            </form>
-            <p id="resultDbPower"></p>
-        </section>
-<!-- 
-        <section>
-            <h2>5. Capacitive Reactance</h2>
-            <p>Calculate Capacitive Reactance:</p>
-            <form onsubmit="calculateCapacitiveReactance(event)">
-                <label>operating frequency f: 
-                    <input type="number" id="frequency" step="any" required>
-                </label>
-                <label>Capacitance : 
-                    <input type="number" id="capacity" step="any" required>
-                </label>
-                <button type="submit">Calculate</button>
-            </form>
-            <p id="resultCapacitiveReactance"></p>
-        </section> -->
-        <section>
-            <h2>5. Capacitive Reactance</h2>
-            <p>Calculate Capacitive Reactance:</p>
-            <form onsubmit="calculateCapacitiveReactance(event)">
-                <label for="frequencyValue">Frequency Value: 
-                    <input type="number" id="frequencyValue" step="any" required>
-                </label>
-                <label for="frequencyUnit">Frequency Unit:
-                    <select id="frequencyUnit" required>
-                        <option value="1">Hz</option>
-                        <option value="1000">kHz</option>
-                        <option value="1000000">MHz</option>
-                        <option value="1000000000">GHz</option>
-                    </select>
-                </label>
-                <br><br>
-                <label for="capacitanceValue">Capacitance Value: 
-                    <input type="number" id="capacitanceValue" step="any" required>
-                </label>
-                <label for="capacitanceUnit">Capacitance Unit:
-                    <select id="capacitanceUnit" required>
-                        <option value="1e-6">μF</option>
-                        <option value="1e-9">nF</option>
-                        <option value="1e-12">pF</option>
-                    </select>
-                </label>
-                <br><br>
-                <button type="submit">Calculate</button>
-            </form>
-            <p id="resultCapacitiveReactance"></p>
-        </section>
-        
-        
-        
-        <!-- <h2>6. Inductive Reactance </h2>
-            <p>Calculate Inductive Reactance :</p>
-            <form onsubmit="calculateInductiveReactance (event)">
-                <label> frequency f: 
-                    <input type="number" id="frequency2" step="any" required>
-                </label>
-                <label>Inductance : 
-                    <input type="number" id="inducty" step="any" required>
-                </label>
-                <button type="submit">Calculate</button>
-            </form>
-            <p id="resultInductiveReactance"></p>
-        </section> -->
+            <div class="animation" id="GainCalc-box">
 
-        <section>
-            <h2>6. Inductive Reactance</h2>
-            <p>Calculate Inductive Reactance:</p>
-            <form onsubmit="calculateInductiveReactance(event)">
-                <!-- Frequency Input with Combo Box -->
-                <label>Frequency (f):
-                    <input type="number" id="frequency2" step="any" required>
-                    <select id="frequencyUnit2">
-                        <option value="1">Hz</option>
-                        <option value="1000">kHz</option>
-                        <option value="1000000">MHz</option>
-                        <option value="1000000000">GHz</option>
-                    </select>
-                </label>
-                <br><br>
-                
-                <!-- Inductance Input with Combo Box -->
-                <label>Inductance (L):
-                    <input type="number" id="inducty" step="any" required>
-                    <select id="inductanceUnit">
-                        <option value="0.000001">µH</option>
-                        <option value="0.001">mH</option>
-                        <option value="1">H</option>
-                    </select>
-                </label>
-                <br>
-                
-                <button type="submit">Calculate</button>
-            </form>
-            <p id="resultInductiveReactance"></p>
-        </section>
+                <div class="formula">
+                    
+                </div>
 
-        
-        <section>
-            <h2>7. Resonant Frequency</h2>
-            <p>Calculate Resonant Frequency:</p>
-            <form onsubmit="calculateResonantFrequency(event)">
-                <!-- Inductance Input with Combo Box -->
-                <label>Inductance (L): 
-                    <input type="number" id="inductance" step="any" required>
-                    <select id="inductanceUnit">
-                        <option value="0.000001">µH</option>
-                        <option value="0.001">mH</option>
-                        <option value="1">H</option>
-                    </select>
-                </label>
-                <br><br>
-        
-                <!-- Capacitance Input with Combo Box -->
-                <label>Capacitance (C): 
-                    <input type="number" id="capacitance" step="any" required>
-                    <select id="capacitanceUnit">
-                        <option value="1e-12">pF</option>
-                        <option value="1e-9">nF</option>
-                        <option value="1e-6">µF</option>
-                        <option value="1">F</option>
-                    </select>
-                </label>
-                <br>
-        
-                <button type="submit">Calculate</button>
-            </form>
-            <p id="resultResonantFrequency"></p>
-        </section>
+                <div class="description">
+                    <p>
+                        <span>Voltage Gain / Attenuation(Av)</span> divides the available frequency spectrum into non-overlapping bands, 
+                        assigning each band to a separate signal for simultaneous transmission, maximizing bandwidth efficiency.
+                    </p>
+                </div>
+            </div>
 
-        <section>
-            <h2>8. Bandwidth (BW)</h2>
-            <p>Calculate Bandwidth:</p>
-            <form onsubmit="calculateBandwidth(event)">
-                <label>Upper Frequency (f<sub>2</sub>): 
-                    <input type="number" id="f2" step="any" required>
-                </label>
-                <label>Lower Frequency (f<sub>1</sub>): 
-                    <input type="number" id="f1" step="any" required>
-                </label>
-                <button type="submit">Calculate</button>
-            </form>
-            <p id="resultBandwidth"></p>
-        </section>
+            <div class="animation hidden" id="ReactanceCalc-box">
 
-        <section>
-            <h2>9. Quality Factor (Q)</h2>
-            <p>Calculate Quality Factor:</p>
-            <form onsubmit="calculateQualityFactor(event)">
-                <label>Reactance (X<sub>L</sub>): 
-                    <input type="number" id="xl" step="any" required>
-                </label>
-                <label>Resistance (R): 
-                    <input type="number" id="r" step="any" required>
-                </label>
-                <button type="submit">Calculate</button>
-            </form>
-            <p id="resultQualityFactor"></p>
-        </section>
+                <div class="formula">
+                    
+                </div>
 
-        <!-- <section>
-            <h2>Cutoff Frequency </h2>
-            <p>Calculate Cutoff Frequency:</p>
-            <form onsubmit="calculateCutoffFrequency(event)">
-                <label>Resistance (R, in Ω): 
-                    <input type="number" id="resistance" step="any" required>
-                </label>
-                <label>Capacitance (C, in F): 
-                    <input type="number" id="capacitance" step="any" required>
-                </label>
-                <button type="submit">Calculate</button>
-            </form>
-            <p id="resultCutoffFrequency"></p>
-        </section>
-         -->
-        
+                <div class="description">
+                    <p>
+                        <span>Power Gain (Ap)</span> divides the available frequency spectrum into non-overlapping bands, 
+                        assigning each band to a separate signal for simultaneous transmission, maximizing bandwidth efficiency.
+                    </p>
+                </div>
+            </div>
+
+            <div class="animation hidden" id="ResonanceCalc-box">
+
+                <div class="formula">
+                    
+                </div>
+
+                <div class="description">
+                    <p>
+                        <span>Decibel (Voltage Gain)</span> divides the available frequency spectrum into non-overlapping bands, 
+                        assigning each band to a separate signal for simultaneous transmission, maximizing bandwidth efficiency.
+                    </p>
+                </div>
+            </div>
+
+            <div class="control">
+                <button id="GainCalc-btn" class="mode-btn active-btn" title="Calculate Voltage and Power Gains, including Decibels">Gain Calculator</button>
+                <button id="ReactanceCalc-btn" class="mode-btn" title="Calculate Capacitive or Inductive Reactance">Reactance Calculator</button>
+                <button id="ResonanceCalc-btn" class="mode-btn" title="Calculate Resonant Frequency, Bandwidth, Quality Factor, and Cutoff Frequency">Resonance Circuit Calculator</button>
+
+                <div class="control-section">
+                    <h2>Calculator Sections</h2>
+
+                    <div>
+                        <span>Gain Calculator</span>
+                        <ul>
+                            <li>Voltage Gain</li>
+                            <li>Power Gain</li>
+                        </ul>
+                    </div>
+                        
+                    <div>
+                        <span>Reactance Calculator</span>
+                        <ul>
+                            <li>Capacitive Reactance</li>
+                            <li>Inductive Reactance</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <span>Resonance Circuit Calculator</span>
+                        <ul>
+                            <li>Resonant Frequency</li>
+                            <li>Bandwidth</li>
+                            <li>Quality Factor</li>
+                            <li>Cutoff Frequency</li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+
     </main>
 
-    <!-- Script for Calculations -->
-    <script>
-        function calculateAv(event) {
-            event.preventDefault();
-            const vout = parseFloat(document.getElementById('vout1').value);
-            const vin = parseFloat(document.getElementById('vin1').value);
-    
-            if (isNaN(vout) || isNaN(vin) || vin === 0) {
-                document.getElementById('resultAv').innerText = 
-                    'Please enter valid numeric values. Input voltage cannot be zero.';
-                return;
-            }
-    
-            const result = vout / vin;
-            document.getElementById('resultAv').innerText = `Voltage Gain (Aᵥ): ${result}`;
-        }
-    
-        function calculateAp(event) {
-            event.preventDefault();
-            const pout = parseFloat(document.getElementById('pout1').value);
-            const pin = parseFloat(document.getElementById('pin1').value);
-    
-            if (isNaN(pout) || isNaN(pin) || pin === 0) {
-                document.getElementById('resultAp').innerText = 
-                    'Please enter valid numeric values. Input power cannot be zero.';
-                return;
-            }
-    
-            const result = pout / pin;
-            document.getElementById('resultAp').innerText = `Power Gain (Aₚ): ${result}`;
-        }
-    
-        function calculateDbVoltage(event) {
-            event.preventDefault();
-            const vout = parseFloat(document.getElementById('vout2').value);
-            const vin = parseFloat(document.getElementById('vin2').value);
-    
-            if (isNaN(vout) || isNaN(vin) || vout <= 0 || vin <= 0) {
-                document.getElementById('resultDbVoltage').innerText = 
-                    'Please enter valid positive voltage values.';
-                return;
-            }
-    
-            const result = 20 * Math.log10(vout / vin);
-            document.getElementById('resultDbVoltage').innerText = 
-                `Voltage Gain in dB: ${result.toFixed(2)} dB`;
-        }
-    
-        function calculateDbPower(event) {
-            event.preventDefault();
-            const pout = parseFloat(document.getElementById('pout2').value);
-            const pin = parseFloat(document.getElementById('pin2').value);
-    
-            if (isNaN(pout) || isNaN(pin) || pout <= 0 || pin <= 0) {
-                document.getElementById('resultDbPower').innerText = 
-                    'Please enter valid positive power values.';
-                return;
-            }
-    
-            const result = 10 * Math.log10(pout / pin);
-            document.getElementById('resultDbPower').innerText = 
-                `Power Gain in dB: ${result.toFixed(2)} dB`;
-        }
-    
-        function calculateCapacitiveReactance(event) {
-            event.preventDefault();
-            const frequencyValue = parseFloat(document.getElementById('frequencyValue').value);
-            const frequencyUnit = parseFloat(document.getElementById('frequencyUnit').value);
-            const capacitanceValue = parseFloat(document.getElementById('capacitanceValue').value);
-            const capacitanceUnit = parseFloat(document.getElementById('capacitanceUnit').value);
-    
-            const frequencyInHz = frequencyValue * frequencyUnit;
-            const capacitanceInFarads = capacitanceValue * capacitanceUnit;
-    
-            if (isNaN(frequencyInHz) || isNaN(capacitanceInFarads) || 
-                frequencyInHz <= 0 || capacitanceInFarads <= 0) {
-                document.getElementById('resultCapacitiveReactance').innerText = 
-                    'Please enter valid positive values for frequency and capacitance.';
-                return;
-            }
-    
-            const capacitiveReactance = 1 / (2 * Math.PI * frequencyInHz * capacitanceInFarads);
-            document.getElementById('resultCapacitiveReactance').innerText = 
-                `Capacitive Reactance (Xc): ${capacitiveReactance.toFixed(2)} Ω`;
-        }
-    
-        function calculateInductiveReactance(event) {
-            event.preventDefault();
-            const frequencyValue = parseFloat(document.getElementById('frequency2').value);
-            const frequencyUnit = parseFloat(document.getElementById('frequencyUnit2').value);
-            const inductanceValue = parseFloat(document.getElementById('inducty').value);
-            const inductanceUnit = parseFloat(document.getElementById('inductanceUnit').value);
-    
-            const frequency = frequencyValue * frequencyUnit;
-            const inductance = inductanceValue * inductanceUnit;
-    
-            if (isNaN(frequency) || isNaN(inductance) || frequency <= 0 || inductance <= 0) {
-                document.getElementById('resultInductiveReactance').innerText = 
-                    'Please enter valid positive values for frequency and inductance.';
-                return;
-            }
-    
-            const result = 2 * Math.PI * frequency * inductance;
-            document.getElementById('resultInductiveReactance').innerText = 
-                `Inductive Reactance (XL): ${result.toFixed(2)} Ω`;
-        }
-    
-        function calculateResonantFrequency(event) {
-            event.preventDefault();
-            const inductanceValue = parseFloat(document.getElementById('inductance').value);
-            const inductanceUnit = parseFloat(document.getElementById('inductanceUnit').value);
-            const capacitanceValue = parseFloat(document.getElementById('capacitance').value);
-            const capacitanceUnit = parseFloat(document.getElementById('capacitanceUnit').value);
-    
-            const inductance = inductanceValue * inductanceUnit;
-            const capacitance = capacitanceValue * capacitanceUnit;
-    
-            if (isNaN(inductance) || isNaN(capacitance) || inductance <= 0 || capacitance <= 0) {
-                document.getElementById('resultResonantFrequency').innerText = 
-                    'Please enter valid positive values for inductance and capacitance.';
-                return;
-            }
-    
-            const result = 1 / (2 * Math.PI * Math.sqrt(inductance * capacitance));
-            document.getElementById('resultResonantFrequency').innerText = 
-                `Resonant Frequency (f_r): ${result.toFixed(2)} Hz`;
-        }
-    
-        function calculateBandwidth(event) {
-            event.preventDefault();
-            const f2 = parseFloat(document.getElementById('f2').value);
-            const f1 = parseFloat(document.getElementById('f1').value);
-    
-            if (isNaN(f2) || isNaN(f1) || f2 <= f1) {
-                document.getElementById('resultBandwidth').innerText = 
-                    'Please enter valid frequencies (f2 must be greater than f1).';
-                return;
-            }
-    
-            const result = f2 - f1;
-            document.getElementById('resultBandwidth').innerText = 
-                `Bandwidth (BW): ${result.toFixed(2)} Hz`;
-        }
-    
-        function calculateQualityFactor(event) {
-            event.preventDefault();
-            const xl = parseFloat(document.getElementById('xl').value);
-            const r = parseFloat(document.getElementById('r').value);
-    
-            if (isNaN(xl) || isNaN(r) || r === 0) {
-                document.getElementById('resultQualityFactor').innerText = 
-                    'Please enter valid numeric values. Resistance cannot be zero.';
-                return;
-            }
-    
-            const result = xl / r;
-            document.getElementById('resultQualityFactor').innerText = 
-                `Quality Factor (Q): ${result.toFixed(2)}`;
-        }
-    </script>
-    
+
+    <script src="../js/animations/topic4.js"></script>
 </body>
 </html>

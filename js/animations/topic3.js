@@ -177,8 +177,23 @@ function reconstructSignal() {
         };
     });
 
-    // Update the reconstructed path
-    reconstructedPath.attr("d", lineGenerator.y(d => yScale(d.value))(reconstructedData));
+    // Generate the reconstructed path
+    const pathData = lineGenerator.y(d => yScale(d.value))(reconstructedData);
+    reconstructedPath
+        .attr("d", pathData)
+        .attr("stroke", "yellow")
+        .attr("stroke-width", 2)
+        .attr("fill", "none");
+
+    // Animate the path
+    const totalLength = reconstructedPath.node().getTotalLength();
+    reconstructedPath
+        .attr("stroke-dasharray", totalLength)
+        .attr("stroke-dashoffset", totalLength)
+        .transition()
+        .duration(1500) // Set the animation duration
+        .ease(d3.easeLinear) // Use linear easing for smooth animation
+        .attr("stroke-dashoffset", 0); // Animate stroke-dashoffset to reveal the path
 }
 
 function updateSliderValues() {
