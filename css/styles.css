@@ -165,12 +165,12 @@ main .two-chapters a {
     border: 3px solid #F5F5F577;
     text-decoration: none;
     color: #F5F5F5;
+    transition: 0.3s ease-in-out;
 }
 
 main .two-chapters a:hover {
     border: 3px solid red;
     transform: scale(1.02);
-    transition: 0.3s ease-in-out;
 }
 
 main .two-chapters a h4 {
