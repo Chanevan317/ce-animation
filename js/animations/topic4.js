@@ -50,3 +50,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+
+
+
+
+/* Voltage gain calculation */
+
+document.addEventListener('DOMContentLoaded', () => {
+    const vinInput = document.getElementById('vin-display');
+    const voutInput = document.getElementById('vout-display');
+    const gainDbResult = document.getElementById('gain-db-result');
+    const voltageGainResult = document.getElementById('voltage-gain-result');
+
+    function calculateAndDisplay() {
+        const vin = parseFloat(vinInput.value);
+        const vout = parseFloat(voutInput.value);
+
+        // Validate inputs
+        if (!isNaN(vin) && !isNaN(vout) && vin !== 0) {
+            const voltageGain = vout / vin;
+            const gainDb = 20 * Math.log10(voltageGain);
+
+            // Update results
+            voltageGainResult.textContent = voltageGain.toFixed(2);
+            gainDbResult.textContent = gainDb.toFixed(2);
+        } else {
+            // Reset results if inputs are invalid
+            voltageGainResult.textContent = '--';
+            gainDbResult.textContent = '--';
+        }
+    }
+
+    // Add event listeners for real-time updates
+    vinInput.addEventListener('input', calculateAndDisplay);
+    voutInput.addEventListener('input', calculateAndDisplay);
+});

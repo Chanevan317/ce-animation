@@ -182,13 +182,13 @@ input[type="range"] {
 
 #GainCalc-box .formula .gain-diagram div {
     display: flex;
-    width: 30%;
+    width: 33%;
     height: 100%;
     align-items: center;
 }
 
 #GainCalc-box .formula .gain-diagram .circuit-block {
-    border: 2px solid #F5F5F577;
+    border: 2px solid #F5F5F5;
     justify-content: center;
 }
 
@@ -200,6 +200,22 @@ input[type="range"] {
     justify-content: start;
 }
 
+#GainCalc-box .formula .gain-diagram .Vin h3, .Vout h3 {
+    display: flex;
+    align-items: center;
+}
+
+#GainCalc-box .formula .gain-diagram .Vin input, .Vout input {
+    display: flex;
+    width: 80px;
+    height: 35px;
+    background-color: #f5f5f5;
+    border: none;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
 #GainCalc-box .formula .results {
     display: flex;
     height: 40%;
@@ -209,10 +225,17 @@ input[type="range"] {
 #GainCalc-box .formula .results .res-box {
     display: flex;
     height: 100%;
-    width: 50%;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 10px;
+}
+
+#GainCalc-box .formula .results .res-box1 {
+    width: 42%;
+}
+
+#GainCalc-box .formula .results .res-box2 {
+    width: 58%;
 }
 
 #GainCalc-box .formula .results .res-box .formula-line1, .formula-line2 {
