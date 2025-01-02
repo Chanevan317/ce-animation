@@ -20,14 +20,15 @@ main .animation-board .animation {
 
 main .animation-board .animation .formula {
     display: flex;
+    flex-direction: column;
     height: 420px;
     width: 800px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     border: 2px solid #F5F5F577;
 }
 
-main .animation .sampling-reconstruction-btn {
+main .animation .calculator-mode {
     display: flex;
     width: 800px;
     margin-top: 20px;
@@ -35,7 +36,7 @@ main .animation .sampling-reconstruction-btn {
     gap: 20px;
 }
 
-main .animation .sampling-reconstruction-btn button {
+main .animation .calculator-mode button {
     display: flex;
     height: 45px;
     width: fit-content;
@@ -49,15 +50,20 @@ main .animation .sampling-reconstruction-btn button {
     cursor: pointer;
 }
 
-main .animation .sampling-reconstruction-btn button:hover {
+main .animation .calculator-mode button:hover {
     background-color: #FF0000CC;
     border: 2px solid #FF000077;
     transition: ease-in-out 0.3s;
 }
 
-main .animation .sampling-reconstruction-btn button:active {
+main .animation .calculator-mode button:active {
     transform: scale(0.98);
     transition: ease-in-out 0.1s;
+}
+
+main .animation .calculator-mode .calculator-active-btn {
+    background-color: #FF0000CC;
+    color: #F5F5F5;
 }
 
 main .animation-board .animation .description {
@@ -111,7 +117,13 @@ main .control .control-section:hover {
 
 main .control .control-section h2 {
     margin-top: 0;
-    margin-bottom: 40px;
+    margin-bottom: 35px;
+}
+
+main .control .control-section p {
+    display: flex;
+    height: 200px;
+    overflow: auto;
 }
 
 main .control button {
@@ -156,3 +168,67 @@ input[type="range"] {
     accent-color: red;
 }
 
+
+
+/* Voltage gain calculator */
+
+#GainCalc-box .formula .gain-diagram {
+    display: flex;
+    height: 35%;
+    width: 100%;
+    justify-content: center;
+    margin-top: 5%;
+}
+
+#GainCalc-box .formula .gain-diagram div {
+    display: flex;
+    width: 30%;
+    height: 100%;
+    align-items: center;
+}
+
+#GainCalc-box .formula .gain-diagram .circuit-block {
+    border: 2px solid #F5F5F577;
+    justify-content: center;
+}
+
+#GainCalc-box .formula .gain-diagram .Vin {
+    justify-content: end;
+}
+
+#GainCalc-box .formula .gain-diagram .Vout {
+    justify-content: start;
+}
+
+#GainCalc-box .formula .results {
+    display: flex;
+    height: 40%;
+    width: 100%;
+}
+
+#GainCalc-box .formula .results .res-box {
+    display: flex;
+    height: 100%;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+#GainCalc-box .formula .results .res-box .formula-line1, .formula-line2 {
+    display: flex;
+    width: 60px;
+    justify-content: center;
+}
+
+#GainCalc-box .formula .results .res-box .formula-line1 h3, .formula-line2 h3 {
+    margin: 10px;
+}
+
+#GainCalc-box .formula .results .res-box .formula-line1 {
+    border-bottom: 2px solid #F5F5F5;
+}
+
+#GainCalc-box .formula .results .res-box .formula-line2 {
+    border-top: 2px solid #F5F5F5;
+}

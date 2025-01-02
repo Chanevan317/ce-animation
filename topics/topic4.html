@@ -59,13 +59,71 @@
             <div class="animation" id="GainCalc-box">
 
                 <div class="formula">
+                    <div class="gain-diagram">
+                        <div class="Vin">
+                            <h3>Vin: 5.0 V &nbsp;&nbsp;&nbsp; --------------</h3>
+                        </div>
+                        <div class="circuit-block">
+                            <h2>Circuit</h2>
+                        </div>
+                        <div class="Vout">
+                            <h3>-------------- &nbsp;&nbsp;&nbsp; Vout: 10.0 V </h3>
+                        </div>
+                    </div>
+
+                    <div class="results">
+                        <div class="res-box">
+                            <div>
+                                <h3>Gain in dB = 20log10(</h3>
+                            </div>
+                            <div>
+                                <div class="formula-line1">
+                                    <h3>Vout</h3>
+                                </div>
+                                <div class="formula-line2">
+                                    <h3>Vin</h3>
+                                </div>
+                            </div>
+                            <div>
+                                <h3>) = </h3>
+                            </div>
+                        </div>
+
+                        <div class="res-box">
+                            <div>
+                                <h3>Voltage Gain &nbsp;=</h3>
+                            </div>
+                            <div>
+                                <div class="formula-line1">
+                                    <h3>Vout</h3>
+                                </div>
+                                <div class="formula-line2">
+                                    <h3>Vin</h3>
+                                </div>
+                            </div>
+                            <div>
+                                <h3>=&nbsp; 2.00</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula hidden">
                     
+                </div>
+
+                <div class="calculator-mode">
+                    <button id="VoltageGain-btn" class="mode-btn calculator-active-btn" title="Voltage Gain">Voltage Gain</button>
+                    <button id="PowerGain-btn" class="mode-btn" title="Power Gain">Power Gain</button>
                 </div>
 
                 <div class="description">
                     <p>
-                        <span>Voltage Gain / Attenuation(Av)</span> divides the available frequency spectrum into non-overlapping bands, 
-                        assigning each band to a separate signal for simultaneous transmission, maximizing bandwidth efficiency.
+                        <span>Voltage Gain</span> measures how much the input voltage is amplified in an electronic circuit. 
+                        It is defined as the ratio of the output voltage (Vout) to the input voltage (Vin).<br><br>
+
+                        <span>Power Gain</span> measures how much the input power is amplified. It is defined as the ratio 
+                        of the output power (Pout) to the input power (Pin).
                     </p>
                 </div>
             </div>
@@ -76,10 +134,22 @@
                     
                 </div>
 
+                <div class="formula hidden">
+                    
+                </div>
+
+                <div class="calculator-mode">
+                    <button id="CapReactance-btn" class="mode-btn calculator-active-btn" title="Capacitive Reactance (XC)">Capacitive Reactance (XC)</button>
+                    <button id="InductReactance-btn" class="mode-btn" title="Calculate Inductive Reactance (XL)">Inductive Reactance (XL)</button>
+                </div>
+
                 <div class="description">
                     <p>
-                        <span>Power Gain (Ap)</span> divides the available frequency spectrum into non-overlapping bands, 
-                        assigning each band to a separate signal for simultaneous transmission, maximizing bandwidth efficiency.
+                        <span>Capacitive Reactance</span> is the opposition that a capacitor offers to the flow of alternating current 
+                        (AC) in a circuit. It depends on the frequency of the AC signal and the capacitance of the capacitor.<br><br>
+
+                        <span>Inductive Reactance</span> iis the opposition that an inductor offers to the flow of AC in a circuit. 
+                        It is directly proportional to the frequency of the AC signal and the inductance of the inductor.
                     </p>
                 </div>
             </div>
@@ -90,18 +160,46 @@
                     
                 </div>
 
+                <div class="formula hidden">
+                    
+                </div>
+
+                <div class="formula hidden">
+                    
+                </div>
+
+                <div class="formula hidden">
+                    
+                </div>
+
+                <div class="calculator-mode">
+                    <button id="ResonantFreq-btn" class="mode-btn calculator-active-btn" title="Calculate Resonant Frequency (f0)">Resonant Frequency</button>
+                    <button id="Bandwidth-btn" class="mode-btn" title="Calculate Bandwidth (BW)">Bandwidth (BW)</button>
+                    <button id="QualityFactor-btn" class="mode-btn" title="Calculate Quality Factor (Q)">Quality Factor (Q)</button>
+                    <button id="CutoffFreq-btn" class="mode-btn" title="Calculate Cutoff Frequency (fc)">Cutoff Frequency</button>
+                </div>
+
                 <div class="description">
                     <p>
-                        <span>Decibel (Voltage Gain)</span> divides the available frequency spectrum into non-overlapping bands, 
-                        assigning each band to a separate signal for simultaneous transmission, maximizing bandwidth efficiency.
+                        <span>Resonant frequency</span> is where the inductive and capacitive reactances cancel, allowing the circuit 
+                        to oscillate at maximum energy transfer.<br>  
+
+                        <span>Bandwidth</span> is the range of frequencies between the upper and lower cutoff points where the circuit 
+                        operates effectively.<br>  
+
+                        <span>Quality factor</span> measures the sharpness of resonance, showing the balance of stored energy versus 
+                        energy loss per cycle.<br>  
+
+                        <span>Cutoff frequencies</span> mark the points where the output power drops to half its peak value, defining 
+                        the bandwidth limits.<br>
                     </p>
                 </div>
             </div>
 
             <div class="control">
-                <button id="GainCalc-btn" class="mode-btn active-btn" title="Calculate Voltage and Power Gains, including Decibels">Gain Calculator</button>
-                <button id="ReactanceCalc-btn" class="mode-btn" title="Calculate Capacitive or Inductive Reactance">Reactance Calculator</button>
-                <button id="ResonanceCalc-btn" class="mode-btn" title="Calculate Resonant Frequency, Bandwidth, Quality Factor, and Cutoff Frequency">Resonance Circuit Calculator</button>
+                <button id="GainCalc-btn" class="mode-section-btn active-btn" title="Calculate Voltage and Power Gains, including Decibels">Gain Calculator</button>
+                <button id="ReactanceCalc-btn" class="mode-section-btn" title="Calculate Capacitive or Inductive Reactance">Reactance Calculator</button>
+                <button id="ResonanceCalc-btn" class="mode-section-btn" title="Calculate Resonant Frequency, Bandwidth, Quality Factor, and Cutoff Frequency">Resonance Circuit Calculator</button>
 
                 <div class="control-section">
                     <h2>Calculator Sections</h2>
