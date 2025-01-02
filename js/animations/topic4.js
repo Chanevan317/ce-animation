@@ -77,8 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
             gainDbResult.textContent = gainDb.toFixed(2);
         } else {
             // Reset results if inputs are invalid
-            voltageGainResult.textContent = '--';
-            gainDbResult.textContent = '--';
+            voltageGainResult.textContent = '---';
+            gainDbResult.textContent = '---';
         }
     }
 
