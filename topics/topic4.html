@@ -95,7 +95,7 @@
                                 </div>
                             </div>
                             <div>
-                                <h3>=&nbsp; <span id="voltage-gain-result" style="color: red;">---</span></h3>
+                                <h3>=&nbsp; <span id="voltage-gain-result" style="color: red;">----</span></h3>
                             </div>
                         </div>
                 
@@ -112,14 +112,70 @@
                                 </div>
                             </div>
                             <div>
-                                <h3>) &nbsp;=&nbsp; <span id="gain-db-result" style="color: red;">---</span> dB</h3>
+                                <h3>) &nbsp;=&nbsp; <span id="gain-db-result" style="color: red;">----</span> dB</h3>
                             </div>
                         </div>
                     </div>
                 </div>                
 
                 <div class="formula hidden">
-                    
+                    <!-- Gain Diagram -->
+                    <div class="gain-diagram">
+                        <div class="Vin">
+                            <h3>
+                                Pin: &nbsp;
+                                <input type="number" id="pin-display" class="value-input" placeholder="" step="0.01">&nbsp; W
+                                &nbsp -------
+                            </h3>
+                        </div>
+                        <div class="circuit-block">
+                            <h2>Circuit</h2>
+                        </div>
+                        <div class="Vout">
+                            <h3>
+                                ------- &nbsp; 
+                                Pout: &nbsp;
+                                <input type="number" id="pout-display" class="value-input" placeholder="" step="0.01">&nbsp; W
+                            </h3>
+                        </div>
+                    </div>
+                
+                    <!-- Results Section -->
+                    <div class="results">
+                        <div class="res-box res-box1">
+                            <div>
+                                <h3>Power Gain &nbsp;=</h3>
+                            </div>
+                            <div>
+                                <div class="formula-line1">
+                                    <h3>Pout</h3>
+                                </div>
+                                <div class="formula-line2">
+                                    <h3>Pin</h3>
+                                </div>
+                            </div>
+                            <div>
+                                <h3>=&nbsp; <span id="power-gain-result" style="color: red;">----</span></h3>
+                            </div>
+                        </div>
+                
+                        <div class="res-box res-box2">
+                            <div>
+                                <h3>Gain in dB &nbsp;=&nbsp; 10log10(</h3>
+                            </div>
+                            <div>
+                                <div class="formula-line1">
+                                    <h3>Pout</h3>
+                                </div>
+                                <div class="formula-line2">
+                                    <h3>Pin</h3>
+                                </div>
+                            </div>
+                            <div>
+                                <h3>) &nbsp;=&nbsp; <span id="power-db-result" style="color: red;">----</span> dB</h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="calculator-mode">
@@ -141,11 +197,117 @@
             <div class="animation hidden" id="ReactanceCalc-box">
 
                 <div class="formula">
-                    
+                    <!-- Diagram -->
+                    <div class="gain-diagram">
+                        <div class="Vin">
+                            <h3>
+                                Vin &nbsp;&nbsp; ---------
+                            </h3>
+                        </div>
+                        <div class="circuit-block">
+                            <h2>Capacitor</h2>
+                            <div class="reactance-input">
+                                <h3>
+                                    f: &nbsp;
+                                    <input type="number" id="f-cap-react-display" class="value-input" placeholder="" step="1" min="0">&nbsp;
+                                    <select id="f-unit">
+                                        <option value="1">Hz</option>
+                                        <option value="1e3">kHz</option>
+                                        <option value="1e6">MHz</option>
+                                    </select>
+                                </h3>
+                                <h3>
+                                    C: &nbsp;
+                                    <input type="number" id="C-cap-react-display" class="value-input" placeholder="" step="0.1" min="0">&nbsp; 
+                                    <select id="C-unit">
+                                        <option value="1e-12">pF</option>
+                                        <option value="1e-9">nF</option>
+                                        <option value="1e-6" selected>µF</option>
+                                        <option value="1e-3">mF</option>
+                                    </select>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="Vout">
+                            <h3>
+                                --------- &nbsp; Vout
+                            </h3>
+                        </div>
+                    </div>
+                
+                    <!-- Results Section -->
+                    <div class="results">
+                        <div class="res-box res-box1">
+                            <div>
+                                <h3>XC &nbsp;=</h3>
+                            </div>
+                            <div>
+                                <div class="formula-line1">
+                                    <h3>1</h3>
+                                </div>
+                                <div class="formula-line2">
+                                    <h3>2πfC</h3>
+                                </div>
+                            </div>
+                            <div>
+                                <h3>=&nbsp; <span id="capacitive-reactance-result" style="color: red;">----</span></h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="formula hidden">
-                    
+                    <!-- Diagram -->
+                    <div class="gain-diagram">
+                        <div class="Vin">
+                            <h3>
+                                Vin &nbsp;&nbsp; ---------
+                            </h3>
+                        </div>
+                        <div class="circuit-block inductor">
+                            <h2>Inductor</h2>
+                            <div class="reactance-input">
+                                <h3>
+                                    f: &nbsp;
+                                    <input type="number" id="f-ind-react-display" class="value-input" placeholder="" step="0.01" min="0"> &nbsp;
+                                    <select id="f-ind-unit">
+                                        <option value="1">Hz</option>
+                                        <option value="1e3">kHz</option>
+                                        <option value="1e6">MHz</option>
+                                    </select>
+                                </h3>
+                                <h3>
+                                    L: &nbsp;
+                                    <input type="number" id="L-ind-react-display" class="value-input" placeholder="" step="0.01" min="0"> &nbsp;
+                                    <select id="L-unit">
+                                        <option value="1e-6">µH</option>
+                                        <option value="1e-3">mH</option>
+                                        <option value="1" selected>H</option>
+                                    </select>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="Vout">
+                            <h3>
+                                --------- &nbsp; Vout
+                            </h3>
+                        </div>
+                    </div>
+                
+                    <!-- Results Section -->
+                    <div class="results">
+                        <div class="res-box res-box1">
+                            <div>
+                                <h3>XL &nbsp;=</h3>
+                            </div>
+                            <div>
+                                <h3>2πfL</h3>
+                            </div>
+                            <div>
+                                <h3>=&nbsp; <span id="inductive-reactance-result" style="color: red;">----</span></h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="calculator-mode">
@@ -167,19 +329,273 @@
             <div class="animation hidden" id="ResonanceCalc-box">
 
                 <div class="formula">
-                    
+                    <!-- Diagram -->
+                    <div class="gain-diagram">
+                        <div class="Vin">
+                            <h3>
+                                Vin &nbsp;&nbsp; ---------
+                            </h3>
+                        </div>
+                        <div class="circuit-block">
+                            <h2>RLC Circuit</h2>
+                            <div class="reactance-input">
+                                <h3>
+                                    C: &nbsp;
+                                    <input type="number" id="C-cap-resonance-display" class="value-input" placeholder="" step="0.1" min="0">&nbsp; 
+                                    <select id="C-res-freq-unit">
+                                        <option value="1e-12">pF</option>
+                                        <option value="1e-9">nF</option>
+                                        <option value="1e-6" selected>µF</option>
+                                        <option value="1e-3">mF</option>
+                                    </select>
+                                </h3>
+                                <h3>
+                                    L: &nbsp;
+                                    <input type="number" id="L-ind-resonance-display" class="value-input" placeholder="" step="0.01" min="0"> &nbsp;
+                                    <select id="L-res-freq-unit">
+                                        <option value="1e-6">µH</option>
+                                        <option value="1e-3">mH</option>
+                                        <option value="1" selected>H</option>
+                                    </select>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="Vout">
+                            <h3>
+                                --------- &nbsp; Vout
+                            </h3>
+                        </div>
+                    </div>
+                
+                    <!-- Results Section -->
+                    <div class="results">
+                        <div class="res-box res-box1">
+                            <div>
+                                <h3>fr &nbsp;=</h3>
+                            </div>
+                            <div>
+                                <div class="formula-line1">
+                                    <h3>1</h3>
+                                </div>
+                                <div class="formula-line2">
+                                    <h3>2π<span style="font-size: 20px;">&#8730;</span><span style="border-top: solid 1px #f5f5f5; padding: 2px;">LC</span></h3>
+                                </div>
+                            </div>
+                            <div>
+                                <h3>=&nbsp; <span id="resonance-freq-result" style="color: red;">----</span></h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="formula hidden">
-                    
+                    <!-- Diagram -->
+                    <div class="gain-diagram">
+                        <div class="Vin">
+                            <h3>
+                                Vin &nbsp;&nbsp; ---------
+                            </h3>
+                        </div>
+                        <div class="circuit-block">
+                            <h2>RLC Circuit</h2>
+                            <div class="reactance-input">
+                                <h3>
+                                    R: &nbsp;
+                                    <input type="number" id="R-BW-display" class="value-input" placeholder="" step="0.1" min="0">&nbsp; 
+                                    <select id="R-BW-unit">
+                                        <option value="1">Ω</option>
+                                        <option value="1e3">kΩ</option>
+                                        <option value="1e6">MΩ</option>
+                                    </select>
+                                </h3>
+                                <h3>
+                                    L: &nbsp;
+                                    <input type="number" id="L-BW-display" class="value-input" placeholder="" step="0.01" min="0"> &nbsp;
+                                    <select id="L-BW-unit">
+                                        <option value="1e-6">µH</option>
+                                        <option value="1e-3">mH</option>
+                                        <option value="1" selected>H</option>
+                                    </select>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="Vout">
+                            <h3>
+                                --------- &nbsp; Vout
+                            </h3>
+                        </div>
+                    </div>
+                
+                    <!-- Results Section -->
+                    <div class="results">
+                        <div class="res-box res-box1">
+                            <div>
+                                <h3>BW &nbsp;=</h3>
+                            </div>
+                            <div>
+                                <div class="formula-line1">
+                                    <h3>R</h3>
+                                </div>
+                                <div class="formula-line2">
+                                    <h3>2πL</h3>
+                                </div>
+                            </div>
+                            <div>
+                                <h3>=&nbsp; <span id="BW-result" style="color: red;">----</span></h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="formula hidden">
-                    
+                    <!-- Diagram -->
+                    <div class="gain-diagram">
+                        <div class="V Vin">
+                            <h3>
+                                Vin ----
+                            </h3>
+                        </div>
+                        <div class="circuit-block quality-fact">
+                            <h2>RLC Circuit</h2>
+                            <div class="reactance-input">
+                                <h3>
+                                    R: &nbsp;
+                                    <input type="number" id="R-Q-display" class="value-input" placeholder="" step="0.1" min="0">&nbsp; 
+                                    <select id="R-Q-unit">
+                                        <option value="1">Ω</option>
+                                        <option value="1e3">kΩ</option>
+                                        <option value="1e6">MΩ</option>
+                                    </select>
+                                </h3>
+                                <h3>
+                                    L: &nbsp;
+                                    <input type="number" id="L-Q-display" class="value-input" placeholder="" step="0.01" min="0"> &nbsp;
+                                    <select id="L-Q-unit">
+                                        <option value="1e-6">µH</option>
+                                        <option value="1e-3">mH</option>
+                                        <option value="1" selected>H</option>
+                                    </select>
+                                </h3>
+                                <h3>
+                                    C: &nbsp;
+                                    <input type="number" id="C-Q-resonance-display" class="value-input" placeholder="" step="0.1" min="0"> &nbsp; 
+                                    <select id="C-Q-unit">
+                                        <option value="1e-12">pF</option>
+                                        <option value="1e-9">nF</option>
+                                        <option value="1e-6" selected>µF</option>
+                                        <option value="1e-3">mF</option>
+                                    </select>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="V Vout">
+                            <h3>
+                                ---- Vout
+                            </h3>
+                        </div>
+                    </div>
+                
+                    <!-- Results Section -->
+                    <div class="results">
+                        <div class="res-box res-box1">
+                            <div>
+                                <h3>Q &nbsp;=</h3>
+                            </div>
+                            <div class="res-box-content">
+                                <div>
+                                    <div class="formula-line1">
+                                        <h3>1</h3>
+                                    </div>
+                                    <div class="formula-line2">
+                                        <h3>R</h3>
+                                    </div>
+                                </div>
+                                <p style="font-size: 78px; margin: 0;">&#8730;</p>
+                                <div style="border-top: solid 3px #f5f5f5;">
+                                    <div class="formula-line1">
+                                        <h3>L</h3>
+                                    </div>
+                                    <div class="formula-line2">
+                                        <h3>C</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3>=&nbsp; <span id="Q-result" style="color: red;">----</span></h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="formula hidden">
-                    
+                    <!-- Diagram -->
+                    <div class="gain-diagram">
+                        <div class="Vin">
+                            <h3>
+                                Vin &nbsp;&nbsp; ---------
+                            </h3>
+                        </div>
+                        <div class="circuit-block">
+                            <h2>RLC Circuit</h2>
+                            <div class="reactance-input">
+                                <h3>
+                                    C: &nbsp;
+                                    <input type="number" id="C-cutoff-display" class="value-input" placeholder="" step="0.1" min="0">&nbsp; 
+                                    <select id="C-cutoff-unit">
+                                        <option value="1e-12">pF</option>
+                                        <option value="1e-9">nF</option>
+                                        <option value="1e-6" selected>µF</option>
+                                        <option value="1e-3">mF</option>
+                                    </select>
+                                </h3>
+                                <h3>
+                                    L: &nbsp;
+                                    <input type="number" id="L-cutoff-display" class="value-input" placeholder="" step="0.01" min="0"> &nbsp;
+                                    <select id="L-cutoff-unit">
+                                        <option value="1e-6">µH</option>
+                                        <option value="1e-3">mH</option>
+                                        <option value="1" selected>H</option>
+                                    </select>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="Vout">
+                            <h3>
+                                --------- &nbsp; Vout
+                            </h3>
+                        </div>
+                    </div>
+                
+                    <!-- Results Section -->
+                    <div class="results">
+                        <div class="res-box res-box1">
+                            <div>
+                                <h3>fc &nbsp;=</h3>
+                            </div>
+                            <div class="res-box-content">
+                                <div>
+                                    <div class="formula-line1">
+                                        <h3>1</h3>
+                                    </div>
+                                    <div class="formula-line2">
+                                        <h3>2π</h3>
+                                    </div>
+                                </div>
+                                <p style="font-size: 25px; margin: 0 8px;">x</p>
+                                <div>
+                                    <div class="formula-line1">
+                                        <h3>1</h3>
+                                    </div>
+                                    <div class="formula-line2">
+                                        <h3><span style="font-size: 20px;">&#8730;</span><span style="border-top: solid 1px #f5f5f5; padding: 2px;">LC</span></h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3>=&nbsp; <span id="cutoff-result" style="color: red;">----</span></h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="calculator-mode">

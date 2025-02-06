@@ -170,9 +170,10 @@ input[type="range"] {
 
 
 
-/* Voltage gain calculator */
 
-#GainCalc-box .formula .gain-diagram {
+/* Gain calculator */
+
+.formula .gain-diagram {
     display: flex;
     height: 35%;
     width: 100%;
@@ -180,32 +181,33 @@ input[type="range"] {
     margin-top: 5%;
 }
 
-#GainCalc-box .formula .gain-diagram div {
+.formula .gain-diagram div {
     display: flex;
     width: 33%;
     height: 100%;
     align-items: center;
 }
 
-#GainCalc-box .formula .gain-diagram .circuit-block {
+.formula .gain-diagram .circuit-block {
     border: 2px solid #F5F5F5;
     justify-content: center;
+    flex-direction: column;
 }
 
-#GainCalc-box .formula .gain-diagram .Vin {
+.formula .gain-diagram .Vin {
     justify-content: end;
 }
 
-#GainCalc-box .formula .gain-diagram .Vout {
+.formula .gain-diagram .Vout {
     justify-content: start;
 }
 
-#GainCalc-box .formula .gain-diagram .Vin h3, .Vout h3 {
+.formula .gain-diagram .Vin h3, .Vout h3 {
     display: flex;
     align-items: center;
 }
 
-#GainCalc-box .formula .gain-diagram .Vin input, .Vout input {
+.formula .gain-diagram input {
     display: flex;
     width: 80px;
     height: 35px;
@@ -217,13 +219,13 @@ input[type="range"] {
     font-weight: 700;
 }
 
-#GainCalc-box .formula .results {
+.formula .results {
     display: flex;
     height: 40%;
     width: 100%;
 }
 
-#GainCalc-box .formula .results .res-box {
+.formula .results .res-box {
     display: flex;
     height: 100%;
     align-items: center;
@@ -231,28 +233,129 @@ input[type="range"] {
     gap: 10px;
 }
 
-#GainCalc-box .formula .results .res-box1 {
+.formula .results .res-box1 {
     width: 42%;
 }
 
-#GainCalc-box .formula .results .res-box2 {
+.formula .results .res-box2 {
     width: 58%;
 }
 
-#GainCalc-box .formula .results .res-box .formula-line1, .formula-line2 {
+.formula .results .res-box .formula-line1, .formula-line2 {
     display: flex;
     width: 60px;
     justify-content: center;
 }
 
-#GainCalc-box .formula .results .res-box .formula-line1 h3, .formula-line2 h3 {
+.formula .results .res-box .formula-line1 h3, .formula-line2 h3 {
     margin: 10px;
 }
 
-#GainCalc-box .formula .results .res-box .formula-line1 {
+.formula .results .res-box .formula-line1 {
     border-bottom: 2px solid #F5F5F5;
 }
 
-#GainCalc-box .formula .results .res-box .formula-line2 {
+.formula .results .res-box .formula-line2 {
     border-top: 2px solid #F5F5F5;
+}
+
+
+
+/* reactance calculator */
+
+#ReactanceCalc-box .formula .gain-diagram .circuit-block {
+    border: solid 10px #F5F5F5;
+    border-top: none;
+    border-bottom: none;
+    width: 95%;
+}
+
+#ReactanceCalc-box .formula .gain-diagram .inductor {
+    border: dashed 3px #F5F5F5;
+    border-radius: 20px;
+    position: relative;
+    width: 95%;
+}
+
+#ReactanceCalc-box .formula .gain-diagram .circuit-block select {
+    display: flex;
+    height: 35px;
+    width: 65px;
+    background-color: #F5F5F5;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+#ReactanceCalc-box .formula .gain-diagram .circuit-block .reactance-input {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+#ReactanceCalc-box .formula .gain-diagram .circuit-block .reactance-input h3 {
+    display: flex;
+    align-items: center;
+}
+
+#ReactanceCalc-box .formula .results .res-box1 {
+    width: 100%;
+}
+
+
+
+
+/* Resonance circuit calculator */
+
+#ResonanceCalc-box .formula .gain-diagram .circuit-block {
+    border: solid 3px #F5F5F5;
+    width: 95%;
+}
+
+#ResonanceCalc-box .formula .gain-diagram .inductor {
+    border: dashed 3px #F5F5F5;
+    border-radius: 20px;
+    position: relative;
+    width: 95%;
+}
+
+#ResonanceCalc-box .formula .gain-diagram .circuit-block select {
+    display: flex;
+    height: 35px;
+    width: 65px;
+    background-color: #F5F5F5;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+#ResonanceCalc-box .formula .gain-diagram .circuit-block .reactance-input {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+#ResonanceCalc-box .formula .gain-diagram .circuit-block .reactance-input h3 {
+    display: flex;
+    align-items: center;
+}
+
+#ResonanceCalc-box .formula .results .res-box1 {
+    width: 100%;
+}
+
+
+
+
+/* Quality factor calculator */
+
+#ResonanceCalc-box .formula .gain-diagram .quality-fact {
+    width: 76%;
+}
+
+#ResonanceCalc-box .formula .gain-diagram .V {
+    width: 12%;
+}
+
+#ResonanceCalc-box .formula .results .res-box1 .res-box-content {
+    display: flex;
+    align-items: center;
 }
