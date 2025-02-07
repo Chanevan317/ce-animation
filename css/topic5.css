@@ -92,6 +92,7 @@ main .control .control-section span {
 main .control .fdm-info {
     height: 60%;
     padding: 0 30px;
+    font-size: 0.8rem;
 }
 
 main .control .fdm-info p {
