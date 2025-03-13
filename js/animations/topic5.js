@@ -3,10 +3,11 @@ const svg = d3.select("#signal-plot");
 const width = +svg.attr("width");
 const height = +svg.attr("height");
 const colors = ['#2196F3', '#4CAF50', '#FFC107', '#E91E63', '#9C27B0', '#00BCD4'];
-const margin = { top: 20, right: 20, bottom: 30, left: 50 };
+const margin = { top: 30, right: 30, bottom: 30, left: 40 };
 
 let numUsers = 1;
-const totalChannelHeight = height;
+const h = (height - 75);
+const totalChannelHeight = height - 75;
 const totalBandwidth = 15; // Total channel bandwidth
 let isFrequencySpectrumVisible = false;
 let isFHSSMode = false;
@@ -18,7 +19,7 @@ const xScale = d3.scaleLinear()
 
 const yScale = d3.scaleLinear()
   .domain([1, 8]) // Frequencies (F1 - F6)
-  .range([height - margin.bottom, margin.top]);
+  .range([h - margin.bottom, margin.top]);
 
 // FHSS Data
 let fhssPattern = [];
@@ -71,13 +72,13 @@ function createFrequencyAxis() {
     
     axisGroup.append("g")
         .attr("class", "x-axis")
-        .attr("transform", `translate(0, ${height - 80})`) // Position the X axis at the bottom
+        .attr("transform", `translate(0, ${h - 80})`) // Position the X axis at the bottom
         .call(xAxis);
 
     // X-axis label
     svg.append("text")
         .attr("x", (width + 30) / 2)
-        .attr("y", height - 20)
+        .attr("y", h - 20)
         .attr("text-anchor", "middle")
         .text("Frequencies") // Label for X-axis
         .attr("fill", "#fff")
@@ -86,7 +87,7 @@ function createFrequencyAxis() {
     // Y-axis
     const yScale = d3.scaleLinear()
         .domain([0, 1])
-        .range([height - 80, 20]); // Scale for Y axis from bottom to top
+        .range([h - 80, 20]); // Scale for Y axis from bottom to top
 
     const yAxis = d3.axisLeft(yScale)
         .ticks(2) // Only show 0 and 1 on the Y-axis
@@ -99,9 +100,9 @@ function createFrequencyAxis() {
     // Y-axis label
     svg.append("text")
         .attr("x", 10)
-        .attr("y", height / 2)
+        .attr("y", h / 2)
         .attr("text-anchor", "middle")
-        .attr("transform", `rotate(-90, 30, ${height / 2})`)
+        .attr("transform", `rotate(-90, 30, ${h / 2})`)
         .text("Amplitude") // Label for Y-axis
         .attr("fill", "#fff")
         .attr("font-size", "14px");
@@ -114,19 +115,20 @@ function drawFDMVisualization() {
     // Only show modulator and demodulator blocks if not in frequency spectrum mode
     if (!isFrequencySpectrumVisible) {
         // Create modulator and demodulator blocks
+
         svg.append("rect")
             .attr("x", 0)
             .attr("y", 0)
             .attr("width", 60)
-            .attr("height", height)
+            .attr("height", h)
             .attr("fill", "#252525")
             .attr("stroke", "2px solid #F5F5F577");
 
         svg.append("text")
             .attr("x", 30)
-            .attr("y", height / 2)
+            .attr("y", h / 2)
             .attr("text-anchor", "middle")
-            .attr("transform", `rotate(-90, 30, ${height / 2})`)
+            .attr("transform", `rotate(-90, 30, ${h / 2})`)
             .text("MODULATOR")
             .attr("fill", "#fff");
 
@@ -134,15 +136,15 @@ function drawFDMVisualization() {
             .attr("x", width - 60)
             .attr("y", 0)
             .attr("width", 60)
-            .attr("height", height)
+            .attr("height", h)
             .attr("fill", "#252525")
             .attr("stroke", "2px solid #F5F5F577");
 
         svg.append("text")
             .attr("x", width - 30)
-            .attr("y", height / 2)
+            .attr("y", h / 2)
             .attr("text-anchor", "middle")
-            .attr("transform", `rotate(90, ${width - 30}, ${height / 2})`)
+            .attr("transform", `rotate(90, ${width - 30}, ${h / 2})`)
             .text("DEMODULATOR")
             .attr("fill", "#fff");
     }
@@ -164,7 +166,7 @@ function drawFDMVisualization() {
                 const startX = (d.startFreq / totalBandwidth) * (width - 90); // Left edge of the frequency range
                 const endX = (d.endFreq / totalBandwidth) * (width - 90); // Right edge of the frequency range
                 const midX = (startX + endX) / 2; // Center of the frequency range
-                const baseY = height - 80; // Base of the half-oval
+                const baseY = h - 80; // Base of the half-oval
                 const topY = 20; // Peak of the half-oval (vertical position)
 
                 // Use an SVG path to create the half-oval
@@ -183,7 +185,7 @@ function drawFDMVisualization() {
             .enter()
             .append("text")
             .attr("x", d => (d.startFreq / totalBandwidth) * (width - 90) + ((d.endFreq - d.startFreq) / totalBandwidth) * (width - 90) / 2) // Positioning the text at the center of the pulse
-            .attr("y", height - 60)
+            .attr("y", h - 60)
             .attr("text-anchor", "middle")
             .text((d, i) => `User ${i + 1}`)
             .attr("fill", "#fff")
@@ -262,7 +264,7 @@ function generateFHSSPattern() {
 function drawFHSSPattern() {
     // Draw time slots (X-axis)
     svg.append("g")
-        .attr("transform", `translate(0, ${height - margin.bottom})`)
+        .attr("transform", `translate(0, ${h - margin.bottom})`)
         .call(d3.axisBottom(xScale).ticks(8).tickFormat((d, i) => `T${i}`));
 
     // Draw frequencies (Y-axis)

@@ -1,23 +1,5 @@
-/* Topic 1 */
 
-main .animation-board {
-    display: flex;
-    width: 100%;
-    height: 90%;
-    margin-bottom: 30px;
-}
-
-main .animation-board .animation {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 73%;
-    align-items: start;
-    justify-content: start;
-    padding-top: 20px;
-}
-
-main .animation .sampling-reconstruction-btn {
+main .animation-board .animation .sampling-reconstruction-btn {
     display: flex;
     width: 800px;
     margin-top: 20px;
@@ -25,7 +7,7 @@ main .animation .sampling-reconstruction-btn {
     gap: 20px;
 }
 
-main .animation .sampling-reconstruction-btn button {
+main .animation-board .animation .sampling-reconstruction-btn button {
     display: flex;
     height: 45px;
     width: fit-content;
@@ -39,105 +21,59 @@ main .animation .sampling-reconstruction-btn button {
     cursor: pointer;
 }
 
-main .animation .sampling-reconstruction-btn button:hover {
+main .animation-board .animation .sampling-reconstruction-btn button:hover {
     background-color: #FF0000CC;
     border: 2px solid #FF000077;
     transition: ease-in-out 0.3s;
 }
 
-main .animation .sampling-reconstruction-btn button:active {
+main .animation-board .animation .sampling-reconstruction-btn button:active {
     transform: scale(0.98);
     transition: ease-in-out 0.1s;
 }
 
-main .animation-board .animation .description {
-    display: flex;
-    width: 90%;
-    align-items: center;
-    padding-top: 30px;
-    font-size: 1.1rem;
-}
-
-main .animation-board .animation .description span {
-    color: red;
+main .animation-board .control .control-section span {
     font-weight: 600;
 }
 
-main .control {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 27%;
-    max-height: 100%;
-    margin-top: 20px;
-}
-
-main .control .control-section {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-    height: 35%;
-    background-color: #252525;
-    border: 2px solid #F5F5F577;
-}
-
-main .control .control-section span {
-    font-weight: 600;
-}
-
-main .control .fs {
+main .animation-board .control .fs {
     height: 28%;
 }
 
-main .control .info {
+main .animation-board .control .info {
     height: 33%;
 }
 
-main .control .info p {
+main .animation-board .control .info p {
     margin: 0;
 }
 
-main .control .fs p {
+main .animation-board .control .fs p {
     margin: 1px 0;
     padding: 0;
     font-size: 1rem !important;
 }
 
-main .control .control-section:hover {
-    border: 2px solid red;
-    transition: 0.3s ease-in-out;
-}
-
-main .control .control-section h2 {
+main .animation-board .control .control-section h2 {
     margin-top: 0;
 }
 
-/* Change the track color and width */
-
-input[type="range"] {
-    width: 55%;
-    accent-color: red;
-}
 
 
 
 
-/* Draw the sigal */
+/* Draw the signal */
 
 .point {
     fill: yellow;
 }
 
-main .control .hidden {
+main .animation-board .control .hidden {
     display: none;
     height: 0;
 }
 
-main .control button {
+main .animation-board .control button {
     display: flex;
     height: 40px;
     width: fit-content;
@@ -152,13 +88,13 @@ main .control button {
     cursor: pointer;
 }
 
-main .control button:hover {
+main .animation-board .control button:hover {
     background-color: #FF0000CC;
     color: #F5F5F5;
     transition: ease-in-out 0.3s;
 }
 
-main .control button:active {
+main .animation-board .control button:active {
     transform: scale(0.98);
     transition: ease-in-out 0.1s;
 }

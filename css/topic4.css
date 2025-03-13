@@ -1,34 +1,16 @@
 
-/* Topic 1 */
-
-main .animation-board {
-    display: flex;
-    width: 100%;
-    height: 90%;
-    margin-bottom: 30px;
-}
-
-main .animation-board .animation {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 73%;
-    align-items: start;
-    justify-content: start;
-    padding-top: 20px;
-}
 
 main .animation-board .animation .formula {
     display: flex;
     flex-direction: column;
-    height: 420px;
+    height: 450px;
     width: 800px;
     align-items: center;
     justify-content: space-around;
     border: 2px solid #F5F5F577;
 }
 
-main .animation .calculator-mode {
+main .animation-board .animation .calculator-mode {
     display: flex;
     width: 800px;
     margin-top: 20px;
@@ -36,7 +18,7 @@ main .animation .calculator-mode {
     gap: 20px;
 }
 
-main .animation .calculator-mode button {
+main .animation-board .animation .calculator-mode button {
     display: flex;
     height: 45px;
     width: fit-content;
@@ -50,83 +32,42 @@ main .animation .calculator-mode button {
     cursor: pointer;
 }
 
-main .animation .calculator-mode button:hover {
+main .animation-board .animation .calculator-mode button:hover {
     background-color: #FF0000CC;
     border: 2px solid #FF000077;
     transition: ease-in-out 0.3s;
 }
 
-main .animation .calculator-mode button:active {
+main .animation-board .animation .calculator-mode button:active {
     transform: scale(0.98);
     transition: ease-in-out 0.1s;
 }
 
-main .animation .calculator-mode .calculator-active-btn {
+main .animation-board .animation .calculator-mode .calculator-active-btn {
     background-color: #FF0000CC;
     color: #F5F5F5;
 }
 
-main .animation-board .animation .description {
-    display: flex;
-    width: 90%;
-    align-items: center;
-    padding-top: 30px;
-    font-size: 1.1rem;
-}
-
-main .animation-board .animation .description span {
-    color: red;
-    font-weight: 600;
-}
-
-main .control {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 27%;
-    max-height: 100%;
-    margin-top: 20px;
-}
-
-main .control .control-section {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-    height: 65%;
-    padding: 25px;
-    background-color: #252525;
-    border: 2px solid #F5F5F577;
-}
-
-main .control .control-section div {
+main .animation-board .control .control-section div {
     width: 80%;
 }
 
-main .control .control-section span {
+main .animation-board .control .control-section span {
     font-weight: 600;
 }
 
-main .control .control-section:hover {
-    border: 2px solid red;
-    transition: 0.3s ease-in-out;
-}
-
-main .control .control-section h2 {
+main .animation-board .control .control-section h2 {
     margin-top: 0;
     margin-bottom: 35px;
 }
 
-main .control .control-section p {
+main .animation-board .control .control-section p {
     display: flex;
     height: 200px;
     overflow: auto;
 }
 
-main .control button {
+main .animation-board .control button {
     display: flex;
     height: 45px;
     width: 100%;
@@ -140,33 +81,28 @@ main .control button {
     cursor: pointer;
 }
 
-main .control .active-btn {
+main .animation-board .control .active-btn {
     background-color: #FF0000CC;
     color: #F5F5F5;
 }
 
-main .control button:hover {
+main .animation-board .control button:hover {
     background-color: #FF0000CC;
     color: #F5F5F5;
     transition: ease-in-out 0.3s;
 }
 
-main .control button:active {
+main .animation-board .control button:active {
     transform: scale(0.98);
     transition: ease-in-out 0.1s;
 }
 
-main .hidden {
+main .animation-board .hidden {
     display: none !important;
     height: 0;
 }
 
-/* Change the track color and width */
 
-input[type="range"] {
-    width: 55%;
-    accent-color: red;
-}
 
 
 

@@ -4,9 +4,10 @@
 
 body {
     background-color: #000000;
-    margin: 0 0 0 180px;
+    margin: 0 0 0 175px;
     padding: 0;
     display: flex;
+    justify-content: center;
 }
 
 /* font style */
@@ -97,15 +98,96 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: start;
-    height: 870px;
-    width: 100%;
-    padding: 0 70px;
+    height: 100vh;
+    width: calc(100% - 120px);
 }
 
 main h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 120px;
+    margin: 0;
+}
+
+main .animation-board {
+    display: flex;
+    width: 100%;
+    height: calc(100% - 140px);
+    margin-bottom: 20px;
+} 
+
+main .animation-board .animation {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 70%;
+    align-items: start;
+    justify-content: start;
+}
+
+main .animation-board .control {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    width: 30%;
+    gap: 20px;
+    height: 100%; 
+    overflow-y: hidden;
+}
+
+main .animation-board .control:hover {
+    overflow-y: auto;
+}
+
+main .animation-board .control .control-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    /* width: calc(100% - 20px); */
+    width: 100%;
     height: fit-content;
-    margin: 30px;
+    padding: 30px;
+    background-color: #252525;
+    border: 2px solid #F5F5F577;
+}
+
+main .animation-board .control .control-section:hover {
+    border: 2px solid red;
+    transition: 0.3s ease-in-out;
+}
+
+main .animation-board .animation .description {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    height: calc(100% - 430px);
+    margin-top: 35px;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.1rem;
+    overflow-y: hidden;
+}
+
+main .animation-board .animation .description:hover {
+    overflow-y: auto;
+}
+
+main .animation-board .animation .description p {
+    margin: 0;
+}
+
+main .animation-board .animation .description span {
+    color: red;
+    font-weight: 600;
+}
+
+/* Change the track color and width */
+
+input[type="range"] {
+    width: 70%;
+    accent-color: red;
 }

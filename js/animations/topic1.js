@@ -1,4 +1,4 @@
-const width = 800, height = 420, margin = { top: 20, right: 30, bottom: 30, left: 40 };
+const width = 800, height = 450, margin = { top: 20, right: -20, bottom: 20, left: -20 };
 const plotWidth = width - margin.left - margin.right;
 const plotHeight = height - margin.top - margin.bottom;
 const maxPoints = 200;
@@ -6,13 +6,14 @@ const maxPoints = 200;
 // Signal state
 let timeData = [];
 let currentTime = 0;
-const timeStep = 0.5;
+const timeStep = 0.4;
 let signalType = 'original';
 let amplitude = 1;
 let frequency = 20;
 let carrierAmplitude = 1;
 let carrierFrequency = 50;
 let fmSensitivity = 0;
+let pmSensitivity = 0;
 
 // Setup SVG
 const svg = d3.select("#signal-plot")
@@ -90,6 +91,10 @@ function generateSignalPoint(time) {
             const fmIndex = (fmSensitivity *  amplitude) / frequency;
             value = carrierAmplitude * Math.cos((2 * Math.PI * carrierFrequency * t) + fmIndex * Math.sin(2 * Math.PI * frequency * t));
             break;
+        case 'pm':
+            const pmIndex = pmSensitivity * baseSignal;
+            value = carrierAmplitude * Math.cos((2 * Math.PI * carrierFrequency * t) + pmIndex);
+            break;
         case 'carrier':
             value = carrierAmplitude * carrierSignal;
             break;
@@ -114,6 +119,7 @@ function updateSliderValues() {
     carrierAmplitude = parseFloat(document.getElementById("carrier-amplitude-slider").value);
     carrierFrequency = parseFloat(document.getElementById("carrier-frequency-slider").value);
     fmSensitivity = parseFloat(document.getElementById("fm-sensitivity-slider").value);
+    pmSensitivity = parseFloat(document.getElementById("pm-sensitivity-slider").value);
 
     // Update display values
     document.getElementById("amplitude-value").textContent = `${amplitude.toFixed(1)} V`;
@@ -121,15 +127,18 @@ function updateSliderValues() {
     document.getElementById("carrier-amplitude-value").textContent = `${carrierAmplitude.toFixed(1)} V`;
     document.getElementById("carrier-frequency-value").textContent = `${carrierFrequency} Hz`;
     document.getElementById("fm-sensitivity-value").textContent = `${fmSensitivity} Hz`;
+    document.getElementById("pm-sensitivity-value").textContent = `${pmSensitivity} rad/unit`;
 
 
     // Calculate amIndex and fmIndex and display 
     const amIndex = amplitude / carrierAmplitude; 
     const fmIndex = (fmSensitivity *  amplitude) / frequency;
+    const pmIndex = pmSensitivity * amplitude;
 
     // Update Nyquist information
     document.getElementById("am-index-value").textContent = `${amIndex.toFixed(2)}`;
     document.getElementById("fm-index-value").textContent = `${fmIndex.toFixed(2)}`;
+    document.getElementById("pm-index-value").textContent = `${pmIndex.toFixed(2)}`;
 }
 
 function updateSignal() {
@@ -149,6 +158,7 @@ function updateSignal() {
         carrier: "red",
         am: "orange",
         fm: "yellow",
+        pm: "blue"
     };
     signalPath
         .attr("stroke", colorMap[signalType]) // Dynamically set stroke color
@@ -179,13 +189,18 @@ document.getElementById("FM-btn").addEventListener("click", () => {
     initializeSignal();
 });
 
+document.getElementById("PM-btn").addEventListener("click", () => {
+    signalType = 'pm';
+    initializeSignal();
+});
+
 // Add slider input listeners
 ['amplitude-slider', 'frequency-slider', 
  'carrier-amplitude-slider', 'carrier-frequency-slider',
   'fm-sensitivity-slider'].forEach(id => {
     const element = document.getElementById(id);
     if (element) {
-        element.addEventListener("changes", updateSliderValues);
+        element.addEventListener("input", updateSliderValues);
     }
 });
 
