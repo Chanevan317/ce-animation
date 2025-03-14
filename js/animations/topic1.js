@@ -7,6 +7,8 @@ const maxPoints = 200;
 let timeData = [];
 let currentTime = 0;
 const timeStep = 0.4;
+let modulatingPhase = 0; // Tracks the current phase of the signal
+let carrierPhase = 0;    // Tracks the phase of the carrier signal
 let signalType = 'original';
 let amplitude = 1;
 let frequency = 20;
@@ -78,9 +80,17 @@ const signalPath = signalContainer.append("path")
 
 function generateSignalPoint(time) {
     const t = time * 0.001; // Convert to seconds
-    const baseSignal = Math.cos(2 * Math.PI * frequency * t);
-    const carrierSignal = Math.cos(2 * Math.PI * carrierFrequency * t);
-    
+
+    // Update phases smoothly
+    modulatingPhase += 2 * Math.PI * frequency * timeStep * 0.001;
+    modulatingPhase %= 2 * Math.PI; // Keep within 0 to 2π
+
+    carrierPhase += 2 * Math.PI * carrierFrequency * timeStep * 0.001;
+    carrierPhase %= 2 * Math.PI; // Keep within 0 to 2π
+
+    const baseSignal = Math.cos(modulatingPhase);
+    const carrierSignal = Math.cos(carrierPhase);
+
     let value;
     switch (signalType) {
         case 'am':
@@ -88,22 +98,24 @@ function generateSignalPoint(time) {
             value = carrierAmplitude * carrierSignal * (1 + amIndex * baseSignal);
             break;
         case 'fm':
-            const fmIndex = (fmSensitivity *  amplitude) / frequency;
-            value = carrierAmplitude * Math.cos((2 * Math.PI * carrierFrequency * t) + fmIndex * Math.sin(2 * Math.PI * frequency * t));
+            const fmIndex = (fmSensitivity * amplitude) / frequency;
+            value = carrierAmplitude * Math.cos(carrierPhase + fmIndex * Math.sin(modulatingPhase));
             break;
         case 'pm':
             const pmIndex = pmSensitivity * baseSignal;
-            value = carrierAmplitude * Math.cos((2 * Math.PI * carrierFrequency * t) + pmIndex);
+            value = carrierAmplitude * Math.cos(carrierPhase + pmIndex);
             break;
         case 'carrier':
             value = carrierAmplitude * carrierSignal;
             break;
-        default: // original signal
+        default:
             value = amplitude * baseSignal;
     }
-    
+
     return { time, value };
 }
+
+
 
 function initializeSignal() {
     timeData = []; // Clear existing data
@@ -141,7 +153,12 @@ function updateSliderValues() {
     document.getElementById("pm-index-value").textContent = `${pmIndex.toFixed(2)}`;
 }
 
+let isAnimating = true; // Animation starts running by default
+let animationFrameId; // Stores the animation frame ID
+
 function updateSignal() {
+    if (!isAnimating) return; // Stop updating if paused
+
     updateSliderValues();
 
     // Remove oldest point and add new point
@@ -150,9 +167,6 @@ function updateSignal() {
     currentTime += timeStep;
 
     // Update the path
-    //signalPath.attr("d", lineGenerator(timeData));
-
-    // Set stroke color based on signal type
     const colorMap = {
         original: "white",
         carrier: "red",
@@ -165,7 +179,7 @@ function updateSignal() {
         .attr("d", lineGenerator(timeData));
 
     // Schedule next update
-    requestAnimationFrame(updateSignal);
+    animationFrameId = requestAnimationFrame(updateSignal);
 }
 
 // Add event listeners
@@ -200,7 +214,18 @@ document.getElementById("PM-btn").addEventListener("click", () => {
   'fm-sensitivity-slider'].forEach(id => {
     const element = document.getElementById(id);
     if (element) {
-        element.addEventListener("input", updateSliderValues);
+        element.addEventListener("changes", updateSliderValues);
+    }
+});
+
+document.getElementById("pause-play-btn").addEventListener("click", function () {
+    isAnimating = !isAnimating; // Toggle state
+    this.textContent = isAnimating ? "Pause" : "Play"; // Update button text
+
+    if (isAnimating) {
+        updateSignal(); // Resume animation
+    } else {
+        cancelAnimationFrame(animationFrameId); // Stop animation
     }
 });
 
