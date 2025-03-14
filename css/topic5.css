@@ -1,47 +1,6 @@
 
-main .animation-board .animation .sampling-reconstruction-btn {
-    display: flex;
-    width: 800px;
-    margin-top: 20px;
-    justify-content: start;
-    gap: 20px;
-}
-
-main .animation-board .animation .sampling-reconstruction-btn button {
-    display: flex;
-    height: 45px;
-    width: fit-content;
-    justify-content: center;
-    align-items: center;
-    padding: 0 20px;
-    font-size: 1.1rem;
-    color: #F5F5F5;
-    background-color: #252525;
-    border: 2px solid #F5F5F577;
-    cursor: pointer;
-}
-
-main .animation-board .animation .sampling-reconstruction-btn button:hover {
-    background-color: #FF0000CC;
-    border: 2px solid #FF000077;
-    transition: ease-in-out 0.3s;
-}
-
-main .animation-board .animation .sampling-reconstruction-btn button:active {
-    transform: scale(0.98);
-    transition: ease-in-out 0.1s;
-}
-
-main .animation-board .control .control-section span {
-    font-weight: 600;
-}
-
 main .animation-board .control .fhss {
     height: 100%;
-}
-
-main .animation-board .control .control-section h2 {
-    margin-top: 0;
 }
 
 main .animation-board .control .control-section .time-slot-box {

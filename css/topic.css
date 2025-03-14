@@ -126,6 +126,38 @@ main .animation-board .animation {
     justify-content: start;
 }
 
+main .animation-board .animation .action-btn-container {
+    display: flex;
+    width: 800px;
+    margin-top: 20px;
+    justify-content: start;
+    gap: 20px;
+}
+
+main .animation-board .animation .action-btn-container button {
+    display: flex;
+    height: 45px;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 1.1rem;
+    color: #F5F5F5;
+    background-color: #252525; 
+    border: 2px solid #F5F5F577;
+    cursor: pointer;
+}
+
+main .animation-board .animation .action-btn-container button:hover {
+    border: 2px solid red;
+    transition: 0.15s ease-in-out;
+}
+
+main .animation-board .animation .action-btn-container button:active {
+    transform: scale(0.98);
+    transition: ease-in-out 0.1s;
+}
+
 main .animation-board .control {
     display: flex;
     flex-direction: column;
@@ -158,6 +190,18 @@ main .animation-board .control .control-section {
 main .animation-board .control .control-section:hover {
     border: 2px solid red;
     transition: 0.3s ease-in-out;
+}
+
+main .animation-board .control .control-section h2 {
+    margin: 0 0 20px 0;
+}
+
+main .animation-board .control .control-section p {
+    margin: 0 0 10px 0;   
+}
+
+main .animation-board .control .control-section span {
+    font-weight: 600;   
 }
 
 main .animation-board .animation .description {

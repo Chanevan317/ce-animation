@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sectionButtons = document.querySelectorAll('.mode-section-btn'); // Section navigation buttons
     const animations = document.querySelectorAll('.animation'); // Animation sections
 
-    const formulaButtons = document.querySelectorAll('.calculator-mode .mode-btn'); // Formula navigation buttons
+    const formulaButtons = document.querySelectorAll('.action-btn-container .mode-btn'); // Formula navigation buttons
     //const formulas = document.querySelectorAll('.formula'); // Formula divs within each section
 
     // Handle section switching

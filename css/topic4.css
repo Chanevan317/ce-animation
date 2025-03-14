@@ -1,5 +1,4 @@
 
-
 main .animation-board .animation .formula {
     display: flex;
     flex-direction: column;
@@ -10,55 +9,13 @@ main .animation-board .animation .formula {
     border: 2px solid #F5F5F577;
 }
 
-main .animation-board .animation .calculator-mode {
-    display: flex;
-    width: 800px;
-    margin-top: 20px;
-    justify-content: start;
-    gap: 20px;
-}
-
-main .animation-board .animation .calculator-mode button {
-    display: flex;
-    height: 45px;
-    width: fit-content;
-    justify-content: center;
-    align-items: center;
-    padding: 0 20px;
-    font-size: 1.1rem;
-    color: #F5F5F5;
-    background-color: #252525;
-    border: 2px solid #F5F5F577;
-    cursor: pointer;
-}
-
-main .animation-board .animation .calculator-mode button:hover {
+main .animation-board .animation .action-btn-container .calculator-active-btn {
     background-color: #FF0000CC;
-    border: 2px solid #FF000077;
-    transition: ease-in-out 0.3s;
-}
-
-main .animation-board .animation .calculator-mode button:active {
-    transform: scale(0.98);
-    transition: ease-in-out 0.1s;
-}
-
-main .animation-board .animation .calculator-mode .calculator-active-btn {
-    background-color: #FF0000CC;
-    color: #F5F5F5;
+    border: 2px solid rgba(255, 0, 0, 0.9);
 }
 
 main .animation-board .control .control-section div {
     width: 80%;
-}
-
-main .animation-board .control .control-section span {
-    font-weight: 600;
-}
-
-main .animation-board .control .control-section h2 {
-    margin-top: 0;
-    margin-bottom: 35px;
 }
 
 main .animation-board .control .control-section p {
