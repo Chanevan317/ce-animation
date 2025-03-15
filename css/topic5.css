@@ -39,12 +39,12 @@ main .animation-board .control button {
     border: none;
     background-color: #F5F5F5;
     cursor: pointer;
+    transition: ease-in-out 0.3s;
 }
 
 main .animation-board .control button:hover {
     background-color: #FF0000CC;
     color: #F5F5F5;
-    transition: ease-in-out 0.3s;
 }
 
 main .animation-board .control button:active {

@@ -172,7 +172,7 @@ function updateSignal() {
         carrier: "red",
         am: "orange",
         fm: "yellow",
-        pm: "blue"
+        pm: "cyan"
     };
     signalPath
         .attr("stroke", colorMap[signalType]) // Dynamically set stroke color

@@ -158,6 +158,11 @@ main .animation-board .animation .action-btn-container button:active {
     transition: ease-in-out 0.1s;
 }
 
+main .animation-board .animation .action-btn-container button.active {
+    background-color: #FF0000CC;
+    border: 2px solid rgba(255, 0, 0, 0.9);
+}
+
 main .animation-board .control {
     display: flex;
     flex-direction: column;

@@ -6,7 +6,14 @@
     <title>Topic 6</title>
     <link rel="icon" href="../images/data communications and networking logo.png">
     <link rel="stylesheet" href="../css/topic.css">
-    <link rel="stylesheet" href="../css/topic1.css">
+    <link rel="stylesheet" href="../css/topic6.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <!-- google font --> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
 </head>
 <body class="poppins-regular">
 
@@ -40,9 +47,9 @@
             Topic <span class="active">6</span>
         </a>
 
-        <a href="topic7.html" class="topic">
+        <!-- <a href="topic7.html" class="topic">
             Topic <span>7</span>
-        </a>
+        </a> -->
     </div>
 
 
@@ -50,8 +57,101 @@
     <main>
 
         <h1 class="title">
-            spectrum observation
+            Digital Modulation - ASK | FSK | PSK
         </h1>
+
+
+        <div class="animation-board">
+
+            <div class="animation">
+
+                <svg id="signal-plot" width="800" height="450"></svg>
+
+                <div class="action-btn-container">
+                    <!-- <button id="Carrier-btn" class="animation-btn">Carrier Signal</button> -->
+                    <button id="ASK-btn" class="animation-btn active">Amplitude Shift Keying</button>
+                    <button id="FSK-btn" class="animation-btn">Frequency Shift Keying</button>
+                    <button id="PSK-btn" class="animation-btn">Phase Shift Keying</button>
+
+                    <script>
+                        const buttons = document.querySelectorAll('.animation-btn');
+                        buttons.forEach(button => {
+                            button.addEventListener('click', () => {
+                                buttons.forEach(btn => btn.classList.remove('active'));
+                                button.classList.add('active');
+                            });
+                        });
+                    </script>
+                </div>
+
+                <div class="description">
+                    <p>
+                        <span>Amplitude Shift Keying (ASK)</span> encodes information by varying the amplitude of a carrier wave. 
+                        In digital communication, ASK represents binary data using different amplitude levels. It is simple to implement 
+                        but highly susceptible to noise, making it less reliable for long-distance transmissions.
+                    </p>
+                    <p> 
+                        <span>Frequency Shift Keying (FSK)</span> encodes information by varying the frequency of the carrier wave. 
+                        FSK is commonly used in modem communications, RFID systems, and low-speed data transmissions. 
+                        It offers better noise immunity than ASK and is widely used in wireless applications.
+                    </p>
+                    <p>
+                        <span>Phase Shift Keying (PSK)</span> encodes information by changing the phase of the carrier wave. 
+                        PSK is widely used in digital communication systems, including Wi-Fi, Bluetooth, and satellite communications. 
+                        It provides strong noise resistance and efficient data transmission, especially in high-speed networks.
+                    </p>                                 
+                </div>
+            </div>
+
+            <div class="control">
+                <div class="control-section">
+                    <h2>Binary Information Signal</h2>
+                
+                    <label for="bit-rate-slider">Bit Rate: <span id="bit-rate-value">4 bps</span></label>
+                    <input type="range" id="bit-rate-slider" min="1" max="10" step="1" value="4">
+                
+                    <label for="binary-sequence">Binary Data:</label>
+                    <input type="text" id="binary-sequence" placeholder="1010" value="1010" maxlength="10">
+                    
+                    <button id="generate-binary">Generate Random</button>
+                </div> 
+                
+                <div class="control-section" id="ask-control">
+                    <h2>ASK</h2>
+
+                    <label for="ask-amplitude-slider">Binary '0' amplitude: <span id="ask-amplitude-value">0 V</span></label>
+                    <input type="range" id="ask-amplitude-slider" min="0" max="1.5" step="0.1" value="0">
+                </div>
+
+                <div class="control-section" id="fsk-control">
+                    <h2>FSK</h2>
+
+                    <label for="fsk-freq-slider">Binary '0' frequency: <span id="fsk-freq-value">5 Hz</span></label>
+                    <input type="range" id="fsk-freq-slider" min="5" max="25" step="5" value="5">
+                </div>
+
+                <div class="control-section" id="psk-control">
+                    <h2>PSK</h2>
+
+                    <label for="psk-pos-phase-slider">Binary '1' phase: <span id="psk-pos-phase-value">0°</span></label>
+                    <input type="range" id="psk-pos-phase-slider" min="0" max="360" step="5" value="0">
+
+                    <label for="psk-neg-phase-slider">Binary '0' phase: <span id="psk-neg-phase-value">180°</span></label>
+                    <input type="range" id="psk-neg-phase-slider" min="0" max="360" step="5" value="180">
+                </div>
+
+                <div class="control-section">
+                    <h2>Carrier Signal</h2>
+
+                    <label for="carrier-amplitude-slider">Carrier Amplitude: <span id="carrier-amplitude-value">0.5 V</span></label>
+                    <input type="range" id="carrier-amplitude-slider" min="0.5" max="2" step="0.1" value="0.5">
+
+                    <label for="carrier-frequency-slider">Carrier Frequency: <span id="carrier-frequency-value">10 Hz</span></label>
+                    <input type="range" id="carrier-frequency-slider" min="10" max="50" step="5" value="10">
+                </div>
+            </div>
+            
+        </div>
 
     </main>
 

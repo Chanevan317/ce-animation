@@ -6,6 +6,7 @@ body {
     background-color: #000000;
     margin: 0;
     padding: 0;
+    padding-top: 90px;
 }
 
 /* font style */
@@ -19,12 +20,16 @@ body {
 
 /* navbar */
 nav {
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 100px;
+    height: 90px;
     width: 100%;
     padding: 0 8%;
+    background-color: #000000;
 }
 
 nav h1{
@@ -133,7 +138,7 @@ nav ul .start-btn:hover {
 
 
 
-/* main section */
+/* main section*/
 
 main {
     display: flex;
@@ -159,7 +164,8 @@ main .two-chapters a {
     flex-direction: column;
     width: 32%;
     justify-content: start;
-    align-items: start;
+    /* align-items: start; */
+    text-align: start;
     padding: 15px 35px;
     background-color: #252525;
     border: 3px solid #F5F5F577;
@@ -211,7 +217,7 @@ footer .footer-box h3 span {
     color: red;
 }
 
-footer .footer-box a {
+footer .footer-box .action-link-footer {
     display: flex;
     height: 35px;
     width: fit-content;
@@ -223,7 +229,7 @@ footer .footer-box a {
     color: #000000;
 }
 
-footer .footer-box a:hover {
+footer .footer-box .action-link-footer:hover {
     background-color: red;
     color: #F5F5F5;
     transition: 0.15s ease-in-out;
@@ -247,6 +253,14 @@ footer .box2 .contact-address h4 {
 
 footer .box2 .contact-address p {
     margin-bottom: 0;
+}
+
+footer .box2 .contact-address p a {
+    color: #F5F5F5;
+    text-decoration: none;
+}
+footer .box2 .contact-address p a:hover {
+    text-decoration: underline;
 }
 
 .copyright {
