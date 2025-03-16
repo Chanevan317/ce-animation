@@ -112,6 +112,7 @@ main h1 {
 
 main .animation-board {
     display: flex;
+    justify-content: space-between;
     width: 100%;
     height: calc(100% - 140px);
     margin-bottom: 20px;
@@ -121,14 +122,14 @@ main .animation-board .animation {
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 70%;
+    width: 800px;
     align-items: start;
     justify-content: start;
 }
 
 main .animation-board .animation .action-btn-container {
     display: flex;
-    width: 800px;
+    width: 100%;
     margin-top: 20px;
     justify-content: start;
     gap: 20px;
@@ -168,7 +169,7 @@ main .animation-board .control {
     flex-direction: column;
     justify-content: start;
     align-items: start;
-    width: 30%;
+    width: calc(100% - 840px);
     gap: 20px;
     height: 100%; 
     overflow-y: hidden;
