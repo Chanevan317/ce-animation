@@ -224,17 +224,20 @@ function toggleMode() {
     const noiseBox = document.getElementById("noise-box");
     const stepInfo = document.getElementById("step-info");
     const noiseInfo = document.getElementById("noise-info");
+    const modeBtn = document.getElementById("mode-btn");
     
     if (isNoiseMode) {
         noiseBox.classList.remove("hidden");
         stepBox.classList.add("hidden");
         noiseInfo.classList.remove("hidden");
         stepInfo.classList.add("hidden");
+        modeBtn.textContent = 'Step Size Mode';
     } else {
         stepBox.classList.remove("hidden");
         noiseBox.classList.add("hidden");
         stepInfo.classList.remove("hidden");
         noiseInfo.classList.add("hidden");
+        modeBtn.textContent = 'Noise Mode';
     }
     
     reconstructedPath.attr("d", null); 
